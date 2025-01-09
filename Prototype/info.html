@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Prototype</title>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h5>Life Capital</h5>
+            </div>
+
+            <nav>
+                <a href="#!">Історія</a>
+                <a href="./index.html">Фінанси</a>
+                <a href="./info.html">Інформація</a>
+                <a href="#!">Дії</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <section id="securities" class="section">
+            <h2>Цінні папери</h2>
+            <table>
+                <tr>
+                    <th>Код</th>
+                    <th>Вартість пакета</th>
+                    <th>Вартість однієї акції (пая)</th>
+                    <th>Кількість</th>
+                </tr>
+                <tr>
+                    <td><input id="code1" type="text" oninput="saveData(this)"></td>
+                    <td><input id="packet-coast1" type="text" oninput="saveData(this)"></td>
+                    <td><input id="share-price1" type="text" oninput="saveData(this)"></td>
+                    <td><input id="number-of-shares1" type="text" oninput="saveData(this)"></td>
+                </tr>
+                <tr>
+                    <td><input id="code2" type="text" oninput="saveData(this)"></td>
+                    <td><input id="packet-coast2" type="text" oninput="saveData(this)"></td>
+                    <td><input id="share-price2" type="text" oninput="saveData(this)"></td>
+                    <td><input id="number-of-shares2" type="text" oninput="saveData(this)"></td>
+                </tr>
+                <tr>
+                    <td><input id="code3" type="text" oninput="saveData(this)"></td>
+                    <td><input id="packet-coast3" type="text" oninput="saveData(this)"></td>
+                    <td><input id="share-price3" type="text" oninput="saveData(this)"></td>
+                    <td><input id="number-of-shares3" type="text" oninput="saveData(this)"></td>
+                </tr>
+                <tr>
+                    <td><input id="code4" type="text" oninput="saveData(this)"></td>
+                    <td><input id="packet-coast4" type="text" oninput="saveData(this)"></td>
+                    <td><input id="share-price4" type="text" oninput="saveData(this)"></td>
+                    <td><input id="number-of-shares4" type="text" oninput="saveData(this)"></td>
+                </tr>
+                <tr>
+                    <td><input id="code5" type="text" oninput="saveData(this)"></td>
+                    <td><input id="packet-coast5" type="text" oninput="saveData(this)"></td>
+                    <td><input id="share-price5" type="text" oninput="saveData(this)"></td>
+                    <td><input id="number-of-shares5" type="text" oninput="saveData(this)"></td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="transactions" class="section">
+            <h2>Інформація про угоди</h2>
+            <textarea rows="1" class="deals"></textarea>
+            <textarea rows="1" class="deals"></textarea>
+            <textarea rows="1" class="deals"></textarea>
+            <textarea rows="1" class="deals"></textarea>
+            <textarea rows="1" class="deals"></textarea>
+        </section>
+
+        <section id="safety-net" class="section">
+            <h2>Фінансова подушка безпеки (ФПБ)</h2>
+            <label>ФПБ = 6 * ЗВ: <input type="text"></label>
+            <table>
+                <tr>
+                    <th>№</th>
+                    <th>Джерело доходу</th>
+                    <th>Поповнення</th>
+                    <th>Накопичувальна сума</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td><input id="source1" type="text" oninput="saveData(this)"></td>
+                    <td><input id="replenishment1" type="text" oninput="saveData(this)"></td>
+                    <td><input id="accumulated-amount1" type="text" oninput="saveData(this)"></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><input id="source2" type="text" oninput="saveData(this)"></td>
+                    <td><input id="replenishment2" type="text" oninput="saveData(this)"></td>
+                    <td><input id="accumulated-amount2" type="text" oninput="saveData(this)"></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><input id="source3" type="text" oninput="saveData(this)"></td>
+                    <td><input id="replenishment3" type="text" oninput="saveData(this)"></td>
+                    <td><input id="accumulated-amount3" type="text" oninput="saveData(this)"></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><input id="source4" type="text" oninput="saveData(this)"></td>
+                    <td><input id="replenishment4" type="text" oninput="saveData(this)"></td>
+                    <td><input id="accumulated-amount4" type="text" oninput="saveData(this)"></td>
+                </tr>
+                <tr class="fpb-tr5">
+                    <td>5</td>
+                    <td><input id="source5" type="text" oninput="saveData(this)"></td>
+                    <td><input id="replenishment5" type="text" oninput="saveData(this)"></td>
+                    <td><input id="accumulated-amount5" type="text" oninput="saveData(this)"></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td><input id="source6" type="text" oninput="saveData(this)"></td>
+                    <td><input id="replenishment6" type="text" oninput="saveData(this)"></td>
+                    <td><input id="accumulated-amount6" type="text" oninput="saveData(this)"></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td><input id="source7" type="text" oninput="saveData(this)"></td>
+                    <td><input id="replenishment7" type="text" oninput="saveData(this)"></td>
+                    <td><input id="accumulated-amount7" type="text" oninput="saveData(this)"></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td><input id="source8" type="text" oninput="saveData(this)"></td>
+                    <td><input id="replenishment8" type="text" oninput="saveData(this)"></td>
+                    <td><input id="accumulated-amount8" type="text" oninput="saveData(this)"></td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td><input id="source9" type="text" oninput="saveData(this)"></td>
+                    <td><input id="replenishment9" type="text" oninput="saveData(this)"></td>
+                    <td><input id="accumulated-amount9" type="text" oninput="saveData(this)"></td>
+                </tr>
+                <tr class="fpb-tr10">
+                    <td>10</td>
+                    <td><input id="source10" type="text" oninput="saveData(this)"></td>
+                    <td><input id="replenishment10" type="text" oninput="saveData(this)"></td>
+                    <td><input id="accumulated-amount10" type="text" oninput="saveData(this)"></td>
+                </tr>
+                <!-- Add more rows here as needed -->
+            </table>
+        </section>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
