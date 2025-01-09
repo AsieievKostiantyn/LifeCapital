@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Prototype</title>
+</head>
+
+    <body>
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <h5>Life Capital</h5>
+                </div>
+
+                <nav>
+                    <a href="#!">Історія</a>
+                    <a href="./index.html">Фінанси</a>
+                    <a href="./info.html">Інформація</a>
+                    <a href="#!">Дії</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="container">
+            <section id="general">
+
+                    <h2>ГОЛОВНА</h2>
+                    <label for="player-name">Ім'я гравця <input id="player-name" oninput="saveData(this)"></label>
+                    <label for="profession">Професія <input id="profession" oninput="saveData(this)"></label>
+            </section>
+
+            <section id="finance" class="section">
+                <div class="income">
+                    <h2>ДОХОДИ</h2>
+
+                    <h3>Базові доходи</h3>
+                    <table class="incomes-table1">
+                        <thead>
+                            <th>Доходи</th>
+                            <th>Сума в звітній період</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="td-text">Оплата праці</td>
+                                <td><input id="income-salary" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                            <tr>
+                                <td class="td-text">Допомога на дітей</td>
+                                <td><input id="income-child-support" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Активи</h3>
+                    <table class="incomes-table2">
+                        <thead>
+                            <tr>
+                                <th>Активи</th>
+                                <th>Сума активів</th>
+                                <th>Пасивний дохід (ПД)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="td-text">Депозитний банківський рахунок</td>
+                                <td><input class="asset-input" id="deposit-amount" type="text" oninput="saveData(this)"></td>
+                                <td><input class="income-input" id="deposit-income" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                            <tr>
+                                <td class="td-text">Банківське золото</td>
+                                <td><input class="asset-input" id="gold-amount" type="text" oninput="saveData(this)"></td>
+                                <td><input class="income-input" id="gold-income" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                            <tr>
+                                <td class="td-text">Інтелектуальна власність</td>
+                                <td><input class="asset-input" id="ip-amount" type="text" oninput="saveData(this)"></td>
+                                <td><input class="income-input" id="ip-income" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Бізнес і нерухомість</h3>
+                    <table class="incomes-table3">
+                        <thead>
+                            <tr>
+                                <th>Код</th>
+                                <th>Перший внесок</th>
+                                <th>Вартість</th>
+                                <th>Кредит</th>
+                                <th>ПД</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="code-input" id="row1-code" type="text" oninput="saveData(this)"></td>
+                                <td><input class="first-payment-input" id="row1-first-payment" type="text" oninput="saveData(this)"></td>
+                                <td><input class="cost-input" id="row1-cost" type="text" oninput="saveData(this)"></td>
+                                <td><input class="credit-input" id="row1-credit" type="text" oninput="saveData(this)"></td>
+                                <td><input class="pd-input" id="row1-pd" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                            <tr>
+                                <td><input class="code-input" id="row2-code" type="text" oninput="saveData(this)"></td>
+                                <td><input class="first-payment-input" id="row2-first-payment" type="text" oninput="saveData(this)"></td>
+                                <td><input class="cost-input" id="row2-cost" type="text" oninput="saveData(this)"></td>
+                                <td><input class="credit-input" id="row2-credit" type="text" oninput="saveData(this)"></td>
+                                <td><input class="pd-input" id="row2-pd" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                            <tr>
+                                <td><input class="code-input" id="row3-code" type="text" oninput="saveData(this)"></td>
+                                <td><input class="first-payment-input" id="row3-first-payment" type="text" oninput="saveData(this)"></td>
+                                <td><input class="cost-input" id="row3-cost" type="text" oninput="saveData(this)"></td>
+                                <td><input class="credit-input" id="row3-credit" type="text" oninput="saveData(this)"></td>
+                                <td><input class="pd-input" id="row3-pd" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                            <tr>
+                                <td><input class="code-input" id="row4-code" type="text" oninput="saveData(this)"></td>
+                                <td><input class="first-payment-input" id="row4-first-payment" type="text" oninput="saveData(this)"></td>
+                                <td><input class="cost-input" id="row4-cost" type="text" oninput="saveData(this)"></td>
+                                <td><input class="credit-input" id="row4-credit" type="text" oninput="saveData(this)"></td>
+                                <td><input class="pd-input" id="row4-pd" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                            <tr>
+                                <td><input class="code-input" id="row5-code" type="text" oninput="saveData(this)"></td>
+                                <td><input class="first-payment-input" id="row5-first-payment" type="text" oninput="saveData(this)"></td>
+                                <td><input class="cost-input" id="row5-cost" type="text" oninput="saveData(this)"></td>
+                                <td><input class="credit-input" id="row5-credit" type="text" oninput="saveData(this)"></td>
+                                <td><input class="pd-input" id="row5-pd" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                            <tr>
+                                <td><input class="code-input" id="row6-code" type="text" oninput="saveData(this)"></td>
+                                <td><input class="first-payment-input" id="row6-first-payment" type="text" oninput="saveData(this)"></td>
+                                <td><input class="cost-input" id="row6-cost" type="text" oninput="saveData(this)"></td>
+                                <td><input class="credit-input" id="row6-credit" type="text" oninput="saveData(this)"></td>
+                                <td><input class="pd-input" id="row6-pd" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="expends">
+                    <h2>ВИТРАТИ</h2>
+                    <h3>Щомісячні витрати</h3>
+                    <table class="extends-table1">
+                        <thead>
+                            <tr>
+                                <th>Витрати</th>
+                                <th>Сума в звітній період</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="td-text">Податок на доходи</td>
+                                <td><input class="expense-input" id="expense-tax-income" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                            <tr>
+                                <td class="td-text">Оплата комунальних послуг</td>
+                                <td><input class="expense-input" id="expense-utilities" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                            <tr>
+                                <td class="td-text">Щомісячні побутові витрати</td>
+                                <td><input class="expense-input" id="expense-monthly-household" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                            <tr>
+                                <td class="td-text">Додаткові витрати</td>
+                                <td><input class="expense-input" id="expense-additional" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                            <tr>
+                                <td class="td-text">Кіл-ть дітей</td>
+                                <td><input class="expense-input" id="expense-num-children" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                            <tr>
+                                <td class="td-text">Витрати на дитину</td>
+                                <td><input class="expense-input" id="expense-child" type="text" oninput="saveData(this)"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Кредити</h3>
+                    <table class="extends-table2">
+                        <thead>
+                            <tr>
+                                <th>Найменування кредитів (пасиви)</th>
+                                <th>Сума кредитів</th>
+                                <th>Сплата, %</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td class="td-text">На нерухомість</td>
+                            <td><input class="summary-input" id="real-estate-amount" type="text" oninput="saveData(this)"></td>
+                            <td><input class="expense-input" id="real-estate-expense" type="text" oninput="saveData(this)"></td>
+                        </tr>
+                        <tr>
+                            <td class="td-text">На автомобіль</td>
+                            <td><input class="summary-input" id="car-amount" type="text" oninput="saveData(this)"></td>
+                            <td><input class="expense-input" id="car-expense" type="text" oninput="saveData(this)"></td>
+                        </tr>
+                        <tr>
+                            <td class="td-text">На побутову техніку</td>
+                            <td><input class="summary-input" id="appliances-amount" type="text" oninput="saveData(this)"></td>
+                            <td><input class="expense-input" id="appliances-expense" type="text" oninput="saveData(this)"></td>
+                        </tr>
+                        <tr>
+                            <td class="td-text">На меблі</td>
+                            <td><input class="summary-input" id="furniture-amount" type="text" oninput="saveData(this)"></td>
+                            <td><input class="expense-input" id="furniture-expense" type="text" oninput="saveData(this)"></td>
+                        </tr>
+                        <tr>
+                            <td class="td-text">Інші кредити 3%</td>
+                            <td><input class="summary-input" id="others-amount" type="text" oninput="saveData(this)"></td>
+                            <td><input class="expense-input" id="others-expense" type="text" oninput="saveData(this)"></td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <table>
+                    <tr>
+                        <th>Щомісячні загальні доходи (ЗД)</th>
+                        <td class="summary"><input class="summary-incomes" id="amount-of-summary-incomes" type="text" oninput="saveData(this)"></td>
+                        <th>Щомісячні загальні витрати (ЗВ)</th>
+                        <td class="summary"><input class="summary-extends" id="amount-of-summary-extends" type="text" oninput="saveData(this)"></td>
+                        <th>Щомісячні вільні кошти (ВК)</th>
+                        <td class="summary"><input class="free-money" id="amount-of-free-money" type="text" oninput="saveData(this)"></td>
+                </table>
+                <script src="index.js"></script>
+            </section>
+
+        </div>
+    </body>
+
+</html>
