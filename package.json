@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://your-username.github.io/your-repo-name/",
+  "homepage": "https://asieievkostiantyn.github.io/LifeCapital/",
   "scripts": {
     "sass": "sass src/scss/main.scss src/index.css",
     "dev": "vite",
