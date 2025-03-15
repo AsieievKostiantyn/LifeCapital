@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 450px;
+
+  gap: 20px;
+}
+
+.table {
+  font-size: 18px;
+  width: 100%;
+  th {
+    text-align: start;
+    border: 1px solid rgba(169, 169, 169, 0.233);
+  }
+  td {
+    border: 1px solid rgba(169, 169, 169, 0.233);
+    text-align: center;
+  }
+}
