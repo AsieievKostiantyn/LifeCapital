@@ -27,14 +27,14 @@
   padding: 10px;
 }
 
-.boughtInvestmentCard{
+.boughtInvestmentCard {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 10px;
   min-width: 300px;
 
-  input{
+  input {
     background-color: transparent;
     border: 1px solid grey;
     color: white;
@@ -43,7 +43,7 @@
   }
 }
 
-.searchInvestmentForm{
+.searchInvestmentForm {
   display: flex;
   input {
     background-color: transparent;
@@ -55,9 +55,9 @@
   }
 }
 
-.investmentCardTableWrapper{
+.investmentCardTableWrapper {
   width: 100%;
-  td{
+  td {
     text-align: center;
   }
 }
@@ -70,7 +70,7 @@
   gap: 20px;
 }
 
-.getRandomInvestmentButtons{
+.getRandomInvestmentButtons {
   width: 100%;
   display: flex;
   justify-content: space-between;

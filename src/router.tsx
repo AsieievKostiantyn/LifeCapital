@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createHashRouter } from 'react-router-dom';
 
 import Home from './pages/Home.tsx';
 import PlayerLegend from './pages/PlayerLegend.tsx';
@@ -12,43 +12,43 @@ import FinancesExtend from './pages/finances/FinancesExtend.tsx';
 
 import AirBag from './pages/AirBag/AirBag.tsx';
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: '/',
     element: <Home />,
     children: [
       {
-        path: '/legend',
+        path: 'legend',
         element: <PlayerLegend />,
       },
       {
-        path: '/investments',
+        path: 'investments',
         element: <Investments />,
       },
       {
-        path: '/events',
+        path: 'events',
         element: <Events />,
       },
       {
-        path: '/finances',
+        path: 'finances',
         element: <Finances />,
         children: [
           {
-            path: '/finances/general',
+            path: 'general',
             element: <FinancesGeneral />,
           },
           {
-            path: '/finances/income',
+            path: 'income',
             element: <FinancesIncome />,
           },
           {
-            path: '/finances/extend',
+            path: 'extend',
             element: <FinancesExtend />,
           },
         ],
       },
       {
-        path: '/airbag',
+        path: 'airbag',
         element: <AirBag />,
       },
     ],

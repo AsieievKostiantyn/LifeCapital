@@ -4,9 +4,9 @@ const PreButtonIcon = ({ bgColor }: { bgColor: string }) => {
   return (
     <div
       style={{ backgroundColor: bgColor }}
-      className={cls.preButtonIcon}>
-    </div>
-  )
+      className={cls.preButtonIcon}
+    ></div>
+  );
 };
 
 export default PreButtonIcon;

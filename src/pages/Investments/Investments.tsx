@@ -139,15 +139,20 @@ const Investments = () => {
               >
                 <p>{selectedInvestment.id}</p>
                 <InvestmentCardPropTable investment={selectedInvestment} />
-                <p className={cls.amountOfExpenses}>{selectedInvestment.title}</p>
+                <p className={cls.amountOfExpenses}>
+                  {selectedInvestment.title}
+                </p>
                 <p
                   className={cls.description}
                   dangerouslySetInnerHTML={{
                     __html: selectedInvestment.description,
                   }}
                 />
-                <button onClick={buyInvestment} style={{ border: '1px solid green' }}>
-                  <PreButtonIcon bgColor='green' />
+                <button
+                  onClick={buyInvestment}
+                  style={{ border: '1px solid green' }}
+                >
+                  <PreButtonIcon bgColor="green" />
                   Інвестувати
                 </button>
               </div>
@@ -163,14 +168,17 @@ const Investments = () => {
           <h3 className="table-header">Бізнес та нерухомість</h3>
           {boughtInvestment.length ? (
             boughtInvestment.map((value) => (
-              <div className={`${cls.investmentCardBorder} ${cls.boughtInvestmentCard}`} key={value.id}>
+              <div
+                className={`${cls.investmentCardBorder} ${cls.boughtInvestmentCard}`}
+                key={value.id}
+              >
                 <p>{value.title}</p>
                 <InvestmentCardPropTable key={value.id} investment={value} />
                 <input
                   type="text"
                   value={value.inputValue}
                   onChange={(e) => handleInputChange(value.id, e.target.value)}
-                  placeholder='Інформація про угоду'
+                  placeholder="Інформація про угоду"
                 />
                 <button
                   onClick={() => sellInvestment(value.id)}
