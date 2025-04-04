@@ -11,6 +11,7 @@ import FinancesIncome from './pages/finances/FinancesIncome.tsx';
 import FinancesExtend from './pages/finances/FinancesExtend.tsx';
 
 import AirBag from './pages/AirBag/AirBag.tsx';
+import FinancialFreedom from './pages/FinancialFreedom/FinancialFreedom.tsx';
 
 export const router = createHashRouter([
   {
@@ -50,6 +51,10 @@ export const router = createHashRouter([
       {
         path: 'airbag',
         element: <AirBag />,
+      },
+      {
+        path: 'financial-freedom',
+        element: <FinancialFreedom />,
       },
     ],
   },

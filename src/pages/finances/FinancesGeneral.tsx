@@ -1,4 +1,6 @@
 import useLocalStorage from '../../service/useLocalStorage';
+import SecondPart from '../../components/SecondPart/SecondPart';
+import FinishGameButton from '../../components/FinishGameButton/FinishGameButton';
 import cls from './Finances.module.scss';
 
 const FinancesGeneral = () => {
@@ -15,11 +17,11 @@ const FinancesGeneral = () => {
   };
 
   return (
-    <div className={cls.financeContainer}>
+    <div className="container">
       <table>
         <tbody>
           <tr>
-            <th>Баланс</th>
+            <th>Готівка</th>
             <td className="summary-td">
               <input
                 className="summary-td-input"
@@ -42,50 +44,46 @@ const FinancesGeneral = () => {
               />
             </td>
           </tr>
+          <tr>
+            <th>Щомісячні загальні доходи (ЗД)</th>
+            <td className="summary-td">
+              <input
+                className="summary-td-input"
+                name="amountOfSummaryIncomes"
+                type="text"
+                value={formData.amountOfSummaryIncomes}
+                onChange={handleChange}
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>Щомісячні загальні витрати (ЗВ)</th>
+            <td className="summary-td">
+              <input
+                className="summary-td-input"
+                name="amountOfSummaryExtends"
+                type="text"
+                value={formData.amountOfSummaryExtends}
+                onChange={handleChange}
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>Щомісячні вільні кошти (ВК)</th>
+            <td className="summary-td">
+              <input
+                className="summary-td-input"
+                name="amountOfFreeMoney"
+                type="text"
+                value={formData.amountOfFreeMoney}
+                onChange={handleChange}
+              />
+            </td>
+          </tr>
         </tbody>
       </table>
-      <div>
-        <table>
-          <tbody>
-            <tr>
-              <th>Щомісячні загальні доходи (ЗД)</th>
-              <td className="summary-td">
-                <input
-                  className="summary-td-input"
-                  name="amountOfSummaryIncomes"
-                  type="text"
-                  value={formData.amountOfSummaryIncomes}
-                  onChange={handleChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>Щомісячні загальні витрати (ЗВ)</th>
-              <td className="summary-td">
-                <input
-                  className="summary-td-input"
-                  name="amountOfSummaryExtends"
-                  type="text"
-                  value={formData.amountOfSummaryExtends}
-                  onChange={handleChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>Щомісячні вільні кошти (ВК)</th>
-              <td className="summary-td">
-                <input
-                  className="summary-td-input"
-                  name="amountOfFreeMoney"
-                  type="text"
-                  value={formData.amountOfFreeMoney}
-                  onChange={handleChange}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <div></div>
+      <FinishGameButton />
     </div>
   );
 };

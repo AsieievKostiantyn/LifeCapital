@@ -1,22 +1,12 @@
+.mainContent {
+  margin-top: 10px;
+}
+
 .navUl {
   margin: 0 -15px;
   padding: 10px;
   display: flex;
   gap: 10px;
-}
-
-.mainContent {
-  display: flex;
-  justify-content: center;
-}
-
-.financeContainer {
-  display: flex;
-  flex-direction: column;
-  padding: 10px 0;
-  min-width: 400px;
-  max-width: 625px;
-  gap: 20px;
 }
 
 .link {

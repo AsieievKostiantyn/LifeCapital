@@ -35,6 +35,7 @@ const Events = () => {
         <div className={`${cls.smallCard} ${cls.eventBorder}`}>
           {selectedEvent ? (
             <>
+              <p>ID: {selectedEvent.id}</p>
               <p className={cls.amountOfExpenses}>{selectedEvent.title}</p>
               <p
                 className={cls.description}
@@ -44,7 +45,7 @@ const Events = () => {
               />
             </>
           ) : (
-            'Подія'
+            ''
           )}
         </div>
       </div>
@@ -53,6 +54,7 @@ const Events = () => {
         <div className={`${cls.smallCard} ${cls.demandBorder}`}>
           {selectedDemand ? (
             <>
+              <p>ID: {selectedDemand.id}</p>
               <p className={cls.amountOfExpenses}>{selectedDemand.title}</p>
               <p
                 className={cls.description}
@@ -62,7 +64,7 @@ const Events = () => {
               />
             </>
           ) : (
-            'Попит'
+            ''
           )}
         </div>
       </div>
@@ -71,6 +73,7 @@ const Events = () => {
         <div className={`${cls.smallCard} ${cls.expendsBorder}`}>
           {selectedExpense ? (
             <>
+              <p>ID: {selectedExpense.id}</p>
               <p className={cls.amountOfExpenses}>
                 {selectedExpense.amountOfExpenses}
               </p>
@@ -82,7 +85,7 @@ const Events = () => {
               />
             </>
           ) : (
-            'Витрати'
+            ''
           )}
         </div>
       </div>

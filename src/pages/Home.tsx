@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import cls from './styles/Home.module.scss';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 function Home() {
-  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -14,6 +13,15 @@ function Home() {
 
         <nav>
           <ul className={cls.nav}>
+            <li>
+              <Link
+                to="/"
+                className={cls.link}
+                onClick={() => setIsOpen(false)}
+              >
+                Інформація
+              </Link>
+            </li>
             <li>
               <Link
                 to="/legend"
@@ -57,6 +65,15 @@ function Home() {
                 onClick={() => setIsOpen(false)}
               >
                 Подушка безпеки
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={'/financial-freedom'}
+                className={cls.link}
+                onClick={() => setIsOpen(false)}
+              >
+                Фінансова свобода
               </Link>
             </li>
           </ul>

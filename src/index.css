@@ -114,4 +114,13 @@ button {
   cursor: pointer;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 550px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
 /*# sourceMappingURL=index.css.map */

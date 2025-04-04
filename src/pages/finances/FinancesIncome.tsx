@@ -41,6 +41,16 @@ const FinancesIncome = () => {
     row6Cost: '',
     row6Credit: '',
     row6Pd: '',
+    row7Code: '',
+    row7FirstPayment: '',
+    row7Cost: '',
+    row7Credit: '',
+    row7Pd: '',
+    row8Code: '',
+    row8FirstPayment: '',
+    row8Cost: '',
+    row8Credit: '',
+    row8Pd: '',
     savingsInsuranceAmount: '',
     savingsInsuranceIncome: '',
     riskInsuranceAmount: '',
@@ -52,13 +62,13 @@ const FinancesIncome = () => {
   };
 
   return (
-    <div className={cls.financeContainer}>
+    <div className="container">
       <table className="incomes-table1">
-        <thead>
-          <th>Доходи</th>
-          <th>Сума в звітній період</th>
-        </thead>
         <tbody>
+          <tr>
+            <th>Доходи</th>
+            <th>Сума в звітній період</th>
+          </tr>
           <tr>
             <td className="td-text">Оплата праці</td>
             <td className="summary-td">
@@ -96,7 +106,7 @@ const FinancesIncome = () => {
           </thead>
           <tbody>
             <tr>
-              <td className="td-text">Депозитний банківський рахунок</td>
+              <td className="td-text">Депозитний банківський рахунок 2%</td>
               <td>
                 <input
                   className="asset-input"
@@ -117,7 +127,7 @@ const FinancesIncome = () => {
               </td>
             </tr>
             <tr>
-              <td className="td-text">Банківське золото</td>
+              <td className="td-text">Банківське золото 1%</td>
               <td>
                 <input
                   className="asset-input"
@@ -212,7 +222,7 @@ const FinancesIncome = () => {
               <th>Код</th>
               <th>Перший внесок</th>
               <th>Вартість</th>
-              <th>Кредит</th>
+              <th>Інвестор</th>
               <th>ПД</th>
             </tr>
           </thead>
@@ -495,6 +505,100 @@ const FinancesIncome = () => {
                   name="row6Pd"
                   type="text"
                   value={formData.row6Pd}
+                  onChange={handleChange}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  className="code-input"
+                  name="row7Code"
+                  type="text"
+                  value={formData.row7Code}
+                  onChange={handleChange}
+                />
+              </td>
+              <td>
+                <input
+                  className="first-payment-input"
+                  name="row7FirstPayment"
+                  type="text"
+                  value={formData.row7FirstPayment}
+                  onChange={handleChange}
+                />
+              </td>
+              <td>
+                <input
+                  className="cost-input"
+                  name="row7Cost"
+                  type="text"
+                  value={formData.row7Cost}
+                  onChange={handleChange}
+                />
+              </td>
+              <td>
+                <input
+                  className="credit-input"
+                  name="row7Credit"
+                  type="text"
+                  value={formData.row7Credit}
+                  onChange={handleChange}
+                />
+              </td>
+              <td>
+                <input
+                  className="pd-input"
+                  name="row7Pd"
+                  type="text"
+                  value={formData.row7Pd}
+                  onChange={handleChange}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  className="code-input"
+                  name="row8Code"
+                  type="text"
+                  value={formData.row8Code}
+                  onChange={handleChange}
+                />
+              </td>
+              <td>
+                <input
+                  className="first-payment-input"
+                  name="row8FirstPayment"
+                  type="text"
+                  value={formData.row8FirstPayment}
+                  onChange={handleChange}
+                />
+              </td>
+              <td>
+                <input
+                  className="cost-input"
+                  name="row8Cost"
+                  type="text"
+                  value={formData.row8Cost}
+                  onChange={handleChange}
+                />
+              </td>
+              <td>
+                <input
+                  className="credit-input"
+                  name="row8Credit"
+                  type="text"
+                  value={formData.row8Credit}
+                  onChange={handleChange}
+                />
+              </td>
+              <td>
+                <input
+                  className="pd-input"
+                  name="row8Pd"
+                  type="text"
+                  value={formData.row8Pd}
                   onChange={handleChange}
                 />
               </td>

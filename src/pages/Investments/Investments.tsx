@@ -7,6 +7,7 @@ import { listOfSmallInvestments } from '../../data/smallInvestments';
 import { listOfLargeInvestments } from '../../data/largeInvestments';
 import { useState, useEffect } from 'react';
 import PreButtonIcon from '../../components/PreButtonIcon/PreButtonIcon';
+import shuffleList from '../../service/shuffleList';
 
 const initialData = Array.from({ length: 5 }, (_, index) => ({
   id: index + 1,
@@ -17,6 +18,10 @@ const initialData = Array.from({ length: 5 }, (_, index) => ({
 }));
 
 const Investments = () => {
+  const [largeInvestments, setLargeInvestments] = useState(
+    shuffleList(listOfLargeInvestments)
+  );
+  const [isInvested, setIsInvested] = useState(false);
   const [tableData, setTableData] = useLocalStorage(
     'investmentsShareTable',
     initialData
@@ -44,13 +49,18 @@ const Investments = () => {
       Math.random() * listOfSmallInvestments.length
     );
     setSelectedInvestment(listOfSmallInvestments[randomIndex]);
+
+    setIsInvested(false);
   };
 
   const handleRandomLargeInvestment = () => {
-    const randomIndex = Math.floor(
-      Math.random() * listOfLargeInvestments.length
-    );
-    setSelectedInvestment(listOfLargeInvestments[randomIndex]);
+    if (largeInvestments.length === 0) return;
+
+    const nextInvestment = largeInvestments.shift();
+    largeInvestments.push(nextInvestment);
+
+    setSelectedInvestment(nextInvestment);
+    setIsInvested(false);
   };
 
   const buyInvestment = () => {
@@ -65,6 +75,8 @@ const Investments = () => {
         { ...selectedInvestment, inputValue: '' }, // Додаємо поле для input
       ]);
     }
+
+    setIsInvested(true);
   };
   const sellInvestment = (investmentId) => {
     setBoughtInvestment(
@@ -102,7 +114,7 @@ const Investments = () => {
 
   return (
     <>
-      <div className={`${cls.chooseCard} borderBottom`}>
+      <div className={`container borderBottom`}>
         <form action="getInvestmentCard">
           <div className={cls.searchInvestmentForm}>
             <input
@@ -121,7 +133,7 @@ const Investments = () => {
               className={cls.investmentCardBorder}
             >
               <PreButtonIcon bgColor={'rgba(221, 146, 6, 0.845)'} />
-              Інвестиції
+              Маленькі інвестиції
             </button>
             <button
               onClick={handleRandomLargeInvestment}
@@ -132,13 +144,12 @@ const Investments = () => {
               Великі інвестиції
             </button>
           </div>
-          <div className="card">
+          <div style={{ width: '100%' }}>
             {selectedInvestment ? (
               <div
                 className={`card ${cls.investmentCardBorder} ${cls.investmentCard}`}
               >
-                <p>{selectedInvestment.id}</p>
-                <InvestmentCardPropTable investment={selectedInvestment} />
+                <p>ID: {selectedInvestment.id}</p>
                 <p className={cls.amountOfExpenses}>
                   {selectedInvestment.title}
                 </p>
@@ -148,13 +159,26 @@ const Investments = () => {
                     __html: selectedInvestment.description,
                   }}
                 />
-                <button
-                  onClick={buyInvestment}
-                  style={{ border: '1px solid green' }}
-                >
-                  <PreButtonIcon bgColor="green" />
-                  Інвестувати
-                </button>
+                <InvestmentCardPropTable investment={selectedInvestment} />
+                {isInvested ? (
+                  <button
+                    onClick={buyInvestment}
+                    disabled={isInvested}
+                    style={{ border: '1px solid grey' }}
+                  >
+                    <PreButtonIcon bgColor="grey" />
+                    Інвестовано
+                  </button>
+                ) : (
+                  <button
+                    onClick={buyInvestment}
+                    disabled={isInvested}
+                    style={{ border: '1px solid green' }}
+                  >
+                    <PreButtonIcon bgColor="green" />
+                    Інвестувати
+                  </button>
+                )}
               </div>
             ) : (
               <InvestmentCardBackSide />
@@ -169,10 +193,17 @@ const Investments = () => {
           {boughtInvestment.length ? (
             boughtInvestment.map((value) => (
               <div
-                className={`${cls.investmentCardBorder} ${cls.boughtInvestmentCard}`}
+                className={`card ${cls.investmentCardBorder} ${cls.boughtInvestmentCard}`}
                 key={value.id}
               >
+                <p>ID: {value.id}</p>
                 <p>{value.title}</p>
+                <p
+                  className={cls.description}
+                  dangerouslySetInnerHTML={{
+                    __html: value.description,
+                  }}
+                />
                 <InvestmentCardPropTable key={value.id} investment={value} />
                 <input
                   type="text"

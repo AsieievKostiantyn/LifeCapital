@@ -26,7 +26,7 @@ const FinancesExtend = () => {
   };
 
   return (
-    <div className={cls.financeContainer}>
+    <div className="container">
       <div>
         <h3 className="table-header">Щомісячні витрати</h3>
         <table className="extends-table1">
@@ -37,29 +37,6 @@ const FinancesExtend = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="td-text">Податок на доходи</td>
-              <td className="summary-td">
-                <input
-                  name="expenseTaxIncome"
-                  type="text"
-                  value={formData.expenseTaxIncome}
-                  onChange={handleChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="td-text">Оплата комунальних послуг</td>
-              <td className="summary-td">
-                <input
-                  className="expense-input"
-                  name="expenseUtilities"
-                  type="text"
-                  value={formData.expenseUtilities}
-                  onChange={handleChange}
-                />
-              </td>
-            </tr>
             <tr>
               <td className="td-text">Щомісячні побутові витрати</td>
               <td className="summary-td">

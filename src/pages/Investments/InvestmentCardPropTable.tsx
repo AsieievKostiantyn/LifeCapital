@@ -7,7 +7,6 @@ const InvestmentCardPropTable = ({ investment }) => {
         <tr>
           {investment.type === 'shares' ? (
             <>
-              <th>Дивіденди</th>
               <th>Ціна акцій сьогодні</th>
               <th>Діапазон цін</th>
             </>
@@ -18,9 +17,10 @@ const InvestmentCardPropTable = ({ investment }) => {
             </>
           ) : (
             <>
+              <th>Код</th>
+              <th>Перший внесок</th>
               <th>Вартість</th>
-              <th>Внесок</th>
-              <th>Кредит</th>
+              <th>Інвестор</th>
               <th>ПД</th>
             </>
           )}
@@ -30,7 +30,6 @@ const InvestmentCardPropTable = ({ investment }) => {
         <tr>
           {investment.type === 'shares' ? (
             <>
-              <td>{investment.dividends}</td>
               <td>{investment.currentlyPrice}</td>
               <td>{investment.priceRange}</td>
             </>
@@ -41,8 +40,9 @@ const InvestmentCardPropTable = ({ investment }) => {
             </>
           ) : (
             <>
-              <td>{investment.cost}</td>
+              <td>{investment.code}</td>
               <td>{investment.firstPayment}</td>
+              <td>{investment.cost}</td>
               <td>{investment.credit}</td>
               <td>{investment.passiveIncome}</td>
             </>

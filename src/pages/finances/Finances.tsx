@@ -7,7 +7,7 @@ const Finances = () => {
 
   return (
     <>
-      <nav className={`${cls.navbar} borderBottom`}>
+      <nav className="borderBottom">
         <ul className={cls.navUl}>
           <li>
             <Link to={'/finances'} className={cls.link}>
