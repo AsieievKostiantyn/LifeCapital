@@ -489,8 +489,8 @@ export const listOfLargeInvestments: businessLargeInvestment[] = [
   },
   {
     type: 'business',
-    id: 'ВІ20',
-    code: 'ОЦ',
+    id: 'ВІ21',
+    code: 'ОЦ-12',
     cost: 700000,
     credit: 620000,
     firstPayment: 80000,

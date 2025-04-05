@@ -7,7 +7,7 @@
   "scripts": {
     "sass": "sass src/scss/main.scss src/index.css",
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "prepare": "husky",

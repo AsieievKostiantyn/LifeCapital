@@ -1,5 +1,4 @@
 import cls from './Investments.module.scss';
-import { InvestmentCardBackSide } from '../../components/InvestmentCard/InvestmentCard';
 import InvestmentsShareRow from './InvestmentsShareRow';
 import InvestmentCardPropTable from './InvestmentCardPropTable';
 import useLocalStorage from '../../service/useLocalStorage';
@@ -8,6 +7,7 @@ import { listOfLargeInvestments } from '../../data/largeInvestments';
 import { useState, useEffect } from 'react';
 import PreButtonIcon from '../../components/PreButtonIcon/PreButtonIcon';
 import shuffleList from '../../service/shuffleList';
+import CardTemplate from '../../components/CardTemplate/CardTemplate';
 
 const initialData = Array.from({ length: 5 }, (_, index) => ({
   id: index + 1,
@@ -94,8 +94,8 @@ const Investments = () => {
     );
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault(); // Забороняємо перезавантаження сторінки
+  const searchInvestment = (e) => {
+    e.preventDefault();
 
     const foundInvestment =
       listOfSmallInvestments.find(
@@ -114,7 +114,7 @@ const Investments = () => {
 
   return (
     <>
-      <div className={`container borderBottom`}>
+      <div className="container">
         <form action="getInvestmentCard">
           <div className={cls.searchInvestmentForm}>
             <input
@@ -123,108 +123,121 @@ const Investments = () => {
               onChange={(e) => setSearchId(e.target.value)}
               placeholder="Введіть ID інвестиції"
             />
-            <button onClick={handleSearch}>Знайти</button>
+            <button onClick={searchInvestment}>Знайти</button>
           </div>
         </form>
-        <div className={cls.chooseCard}>
-          <div className={cls.getRandomInvestmentButtons}>
+        <div>
+          <div>
             <button
               onClick={handleRandomSmallInvestment}
-              className={cls.investmentCardBorder}
+              className="investmentCardBorder"
             >
               <PreButtonIcon bgColor={'rgba(221, 146, 6, 0.845)'} />
               Маленькі інвестиції
             </button>
             <button
               onClick={handleRandomLargeInvestment}
-              className={cls.investmentCardBorder}
+              className="investmentCardBorder"
             >
               <PreButtonIcon bgColor={'rgba(221, 146, 6, 0.845)'} />
               <PreButtonIcon bgColor={'rgba(221, 146, 6, 0.845)'} />
               Великі інвестиції
             </button>
           </div>
-          <div style={{ width: '100%' }}>
+          <div>
             {selectedInvestment ? (
-              <div
-                className={`card ${cls.investmentCardBorder} ${cls.investmentCard}`}
-              >
-                <p>ID: {selectedInvestment.id}</p>
-                <p className={cls.amountOfExpenses}>
-                  {selectedInvestment.title}
-                </p>
-                <p
-                  className={cls.description}
-                  dangerouslySetInnerHTML={{
-                    __html: selectedInvestment.description,
-                  }}
-                />
-                <InvestmentCardPropTable investment={selectedInvestment} />
-                {isInvested ? (
-                  <button
-                    onClick={buyInvestment}
-                    disabled={isInvested}
-                    style={{ border: '1px solid grey' }}
-                  >
-                    <PreButtonIcon bgColor="grey" />
-                    Інвестовано
-                  </button>
-                ) : (
-                  <button
-                    onClick={buyInvestment}
-                    disabled={isInvested}
-                    style={{ border: '1px solid green' }}
-                  >
-                    <PreButtonIcon bgColor="green" />
-                    Інвестувати
-                  </button>
-                )}
-              </div>
+              <CardTemplate borderColor={'rgba(221, 146, 6, 0.845)'}>
+                <div className={cls.investmentInfoContainer}>
+                  <p>ID: {selectedInvestment.id}</p>
+                  <p>{selectedInvestment.title}</p>
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: selectedInvestment.description,
+                    }}
+                  />
+                  <InvestmentCardPropTable investment={selectedInvestment} />
+                  {isInvested ? (
+                    <button
+                      onClick={buyInvestment}
+                      disabled={isInvested}
+                      style={{
+                        cursor: 'not-allowed',
+                        border: '1px solid grey',
+                      }}
+                    >
+                      <PreButtonIcon bgColor="grey" />
+                      Інвестовано
+                    </button>
+                  ) : (
+                    <button
+                      onClick={buyInvestment}
+                      disabled={isInvested}
+                      style={{ border: '1px solid green' }}
+                    >
+                      <PreButtonIcon bgColor="green" />
+                      Інвестувати
+                    </button>
+                  )}
+                </div>
+              </CardTemplate>
             ) : (
-              <InvestmentCardBackSide />
+              <CardTemplate
+                borderColor={'rgba(221, 146, 6, 0.845)'}
+              ></CardTemplate>
             )}
           </div>
         </div>
       </div>
-      <div className={`${cls.myInvestments} borderBottom`}>
-        <h2>Мої інвестиції</h2>
+      <div className="borderBottom" style={{ marginTop: '20px' }}></div>
+      <div className="container">
+        <h2 style={{ margin: '20px 0 -20px', textAlign: 'center' }}>
+          Мої інвестиції
+        </h2>
         <div>
           <h3 className="table-header">Бізнес та нерухомість</h3>
-          {boughtInvestment.length ? (
-            boughtInvestment.map((value) => (
-              <div
-                className={`card ${cls.investmentCardBorder} ${cls.boughtInvestmentCard}`}
-                key={value.id}
-              >
-                <p>ID: {value.id}</p>
-                <p>{value.title}</p>
-                <p
-                  className={cls.description}
-                  dangerouslySetInnerHTML={{
-                    __html: value.description,
-                  }}
-                />
-                <InvestmentCardPropTable key={value.id} investment={value} />
-                <input
-                  type="text"
-                  value={value.inputValue}
-                  onChange={(e) => handleInputChange(value.id, e.target.value)}
-                  placeholder="Інформація про угоду"
-                />
-                <button
-                  onClick={() => sellInvestment(value.id)}
-                  style={{ border: '1px solid red' }}
+          <div className={cls.boughtInvestmentList}>
+            {boughtInvestment.length ? (
+              boughtInvestment.map((value) => (
+                <CardTemplate
+                  borderColor={'rgba(221, 146, 6, 0.845)'}
+                  key={value.id}
                 >
-                  <PreButtonIcon bgColor={'red'} />
-                  Продати
-                </button>
-              </div>
-            ))
-          ) : (
-            <p>У вас немає жодної інвестиції</p>
-          )}
+                  <div className={cls.investmentInfoContainer}>
+                    <p>ID: {value.id}</p>
+                    <p>{value.title}</p>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: value.description,
+                      }}
+                    />
+                    <InvestmentCardPropTable
+                      key={value.id}
+                      investment={value}
+                    />
+                    <input
+                      type="text"
+                      value={value.inputValue}
+                      onChange={(e) =>
+                        handleInputChange(value.id, e.target.value)
+                      }
+                      placeholder="Інформація про угоду"
+                    />
+                    <button
+                      onClick={() => sellInvestment(value.id)}
+                      style={{ border: '1px solid red' }}
+                    >
+                      <PreButtonIcon bgColor={'red'} />
+                      Продати
+                    </button>
+                  </div>
+                </CardTemplate>
+              ))
+            ) : (
+              <p>У вас немає жодної інвестиції</p>
+            )}
+          </div>
         </div>
-        <div className={cls.tableContainer}>
+        <div>
           <div>
             <h3 className="table-header">Цінні папери</h3>
             <table>

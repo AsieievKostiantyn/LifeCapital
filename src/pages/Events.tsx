@@ -5,13 +5,12 @@ import { listOfDemands } from '../data/demands';
 import { listOfEvents } from '../data/events';
 
 import { useState } from 'react';
+import CardTemplate from '../components/CardTemplate/CardTemplate';
 
 const Events = () => {
   const [selectedExpense, setSelectedExpense] = useState(null);
   const [selectedDemand, setSelectedDemand] = useState(null);
   const [selectedEvent, setSelectedEvent] = useState(null);
-
-  const [savedCards, setSavedCards] = useState(null);
 
   const handleRandomExpense = () => {
     const randomIndex = Math.floor(Math.random() * listOfExpenses.length);
@@ -29,64 +28,72 @@ const Events = () => {
   };
 
   return (
-    <div className={cls.container}>
-      <div className={cls.cardChooseContainer}>
-        <button onClick={handleRandomEvent}>Подія</button>
-        <div className={`${cls.smallCard} ${cls.eventBorder}`}>
-          {selectedEvent ? (
-            <>
-              <p>ID: {selectedEvent.id}</p>
-              <p className={cls.amountOfExpenses}>{selectedEvent.title}</p>
-              <p
-                className={cls.description}
-                dangerouslySetInnerHTML={{
-                  __html: selectedEvent.description,
-                }}
-              />
-            </>
-          ) : (
-            ''
-          )}
+    <div className="container">
+      <div className={cls.wrapper}>
+        <div className={cls.cardChooseContainer}>
+          <button onClick={handleRandomEvent}>Подія</button>
+          <CardTemplate borderColor={'purple'}>
+            {selectedEvent ? (
+              <>
+                <p>ID: {selectedEvent.id}</p>
+                <div className={cls.cardInfo}>
+                  <p className={cls.title}>{selectedEvent.title}</p>
+                  <p
+                    className={cls.description}
+                    dangerouslySetInnerHTML={{
+                      __html: selectedEvent.description,
+                    }}
+                  />
+                </div>
+              </>
+            ) : (
+              ''
+            )}
+          </CardTemplate>
         </div>
-      </div>
-      <div className={cls.cardChooseContainer}>
-        <button onClick={handleRandomDemand}>Попит</button>
-        <div className={`${cls.smallCard} ${cls.demandBorder}`}>
-          {selectedDemand ? (
-            <>
-              <p>ID: {selectedDemand.id}</p>
-              <p className={cls.amountOfExpenses}>{selectedDemand.title}</p>
-              <p
-                className={cls.description}
-                dangerouslySetInnerHTML={{
-                  __html: selectedDemand.description,
-                }}
-              />
-            </>
-          ) : (
-            ''
-          )}
+        <div className={cls.cardChooseContainer}>
+          <button onClick={handleRandomDemand}>Попит</button>
+          <CardTemplate borderColor={'#328ff3ca'}>
+            {selectedDemand ? (
+              <>
+                <p>ID: {selectedDemand.id}</p>
+                <div className={cls.cardInfo}>
+                  <p className={cls.title}>{selectedDemand.title}</p>
+                  <p
+                    className={cls.description}
+                    dangerouslySetInnerHTML={{
+                      __html: selectedDemand.description,
+                    }}
+                  />
+                </div>
+              </>
+            ) : (
+              ''
+            )}
+          </CardTemplate>
         </div>
-      </div>
-      <div className={cls.cardChooseContainer}>
-        <button onClick={handleRandomExpense}>Витрати</button>
-        <div className={`${cls.smallCard} ${cls.expendsBorder}`}>
-          {selectedExpense ? (
-            <>
-              <p>ID: {selectedExpense.id}</p>
-              <p className={cls.amountOfExpenses}>
-                {selectedExpense.amountOfExpenses}
-              </p>
-              <p
-                className={cls.description}
-                dangerouslySetInnerHTML={{
-                  __html: selectedExpense.description,
-                }}
-              />
-            </>
-          ) : (
-            ''
-          )}
+        <div className={cls.cardChooseContainer}>
+          <button onClick={handleRandomExpense}>Витрати</button>
+          <CardTemplate borderColor={'rgb(117, 18, 18)'}>
+            {selectedExpense ? (
+              <>
+                <p>ID: {selectedExpense.id}</p>
+                <div className={cls.cardInfo}>
+                  <p className={cls.title}>
+                    {selectedExpense.amountOfExpenses}
+                  </p>
+                  <p
+                    className={cls.description}
+                    dangerouslySetInnerHTML={{
+                      __html: selectedExpense.description,
+                    }}
+                  />
+                </div>
+              </>
+            ) : (
+              ''
+            )}
+          </CardTemplate>
         </div>
       </div>
     </div>

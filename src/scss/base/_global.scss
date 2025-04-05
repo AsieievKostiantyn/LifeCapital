@@ -2,11 +2,6 @@
   display: flex;
 }
 
-.card {
-  min-height: 200px;
-  max-width: 450px;
-}
-
 table input {
   text-align: center;
   color: white;
@@ -59,4 +54,13 @@ button {
   max-width: 550px;
   margin: 0 auto;
   gap: 20px;
+}
+
+.investmentCardBorder {
+  border: 1px solid rgba(221, 146, 6, 0.845);
+}
+
+.card-template {
+  min-height: 200px;
+  width: 100%;
 }

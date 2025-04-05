@@ -1,8 +1,6 @@
-import cls from './Investments.module.scss';
-
 const InvestmentCardPropTable = ({ investment }) => {
   return (
-    <table className={cls.investmentCardTableWrapper}>
+    <table>
       <thead>
         <tr>
           {investment.type === 'shares' ? (

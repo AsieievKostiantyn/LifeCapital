@@ -33,9 +33,11 @@ interface shareInvestment {
   description: string;
 }
 
-export const listOfSmallInvestments: [
-  businessInvestment | currencyInvestment | shareInvestment,
-] = [
+export const listOfSmallInvestments: (
+  | businessInvestment
+  | currencyInvestment
+  | shareInvestment
+)[] = [
   {
     type: 'shares',
     id: 'МІ30',
@@ -519,18 +521,6 @@ export const listOfSmallInvestments: [
     title: 'Ремонт квартир (РК)',
     description:
       'Вам пропонують відкрити підприємство по ремонту квартир і найняти робітників будівельних спеціальностей. Використайте цю можливість самостійно або запропонуйте її іншому гравцеві.',
-  },
-  {
-    type: 'business',
-    id: 'МІ36',
-    code: 'К-1',
-    cost: 32000,
-    credit: 29000,
-    firstPayment: 3000,
-    passiveIncome: 210,
-    title: '1-кімнатна квартира (К-1)',
-    description:
-      'Власник вирішив жити за містом і виставляє на продаж свою 1-кімнатну квартиру. Використайте цю можливість самостійно або запропонуйте її іншому гравцеві. Можлива ціна продажу в подальшому до 55 000.',
   },
   {
     type: 'business',

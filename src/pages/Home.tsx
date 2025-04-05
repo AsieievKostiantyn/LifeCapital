@@ -114,7 +114,7 @@ function Home() {
               />
             </svg>
           </button>
-          <h1>Життєвий капітал</h1>
+          <p>Життєвий капітал</p>
         </div>
 
         <Outlet />
