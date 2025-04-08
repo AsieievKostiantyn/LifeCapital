@@ -2,7 +2,14 @@ import useLocalStorage from '../../service/useLocalStorage';
 import AirBagTableRow from './AirBagTableRow';
 import cls from './AirBag.module.scss';
 
-const initialData = Array.from({ length: 10 }, (_, index) => ({
+export interface IncomeRowType {
+  id: number;
+  source: string;
+  replenishment: string;
+  accumulatedAmount: string;
+}
+
+const initialData: IncomeRowType[] = Array.from({ length: 10 }, (_, index) => ({
   id: index + 1,
   source: '',
   replenishment: '',
@@ -10,16 +17,25 @@ const initialData = Array.from({ length: 10 }, (_, index) => ({
 }));
 
 const IncomeTable = () => {
-  const [tableData, setTableData] = useLocalStorage('airBagTable', initialData);
+  const [tableData, setTableData] = useLocalStorage<IncomeRowType[]>(
+    'airBagTable',
+    initialData
+  );
   const [airBagValue, setAirBagValue] = useLocalStorage('airBagValue', '');
 
-  const handleChangeInput = (e) => {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAirBagValue(e.target.value);
   };
 
-  const handleChange = (index, field, value) => {
-    setTableData((prev) =>
-      prev.map((row, i) => (i === index ? { ...row, [field]: value } : row))
+  const handleChange = (
+    index: number,
+    field: keyof IncomeRowType,
+    value: string
+  ): void => {
+    setTableData((prev: IncomeRowType[]) =>
+      prev.map((row: IncomeRowType, i: number) =>
+        i === index ? { ...row, [field]: value } : row
+      )
     );
   };
 
@@ -50,7 +66,7 @@ const IncomeTable = () => {
           </tr>
         </thead>
         <tbody>
-          {tableData.map((row, index) => (
+          {tableData.map((row: IncomeRowType, index: number) => (
             <AirBagTableRow
               key={row.id}
               row={row}

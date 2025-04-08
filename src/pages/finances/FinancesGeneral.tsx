@@ -1,7 +1,5 @@
 import useLocalStorage from '../../service/useLocalStorage';
-import SecondPart from '../../components/SecondPart/SecondPart';
 import FinishGameButton from '../../components/FinishGameButton/FinishGameButton';
-import cls from './Finances.module.scss';
 
 const FinancesGeneral = () => {
   const [formData, setFormData] = useLocalStorage('finances', {
@@ -12,7 +10,7 @@ const FinancesGeneral = () => {
     amountOfFreeMoney: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 

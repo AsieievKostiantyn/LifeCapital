@@ -1,6 +1,17 @@
+import { IncomeRowType } from './AirBag';
 import cls from './AirBag.module.scss';
 
-const IncomeRow = ({ row, index, handleChange }) => {
+interface IncomeRowProps {
+  row: IncomeRowType;
+  index: number;
+  handleChange: (
+    index: number,
+    field: keyof IncomeRowType,
+    value: string
+  ) => void;
+}
+
+const IncomeRow = ({ row, index, handleChange }: IncomeRowProps) => {
   return (
     <tr>
       <td className={cls.tdIndexStyle}>{row.id}</td>

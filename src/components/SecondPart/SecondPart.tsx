@@ -1,35 +1,37 @@
 import useLocalStorage from '../../service/useLocalStorage';
 import SecondPartTableRow from './SecondPartTableRow';
 
-const initialData = Array.from({ length: 10 }, (_) => ({
-  businessNmae: '',
+const emptyRow = {
+  businessName: '',
   cost: '',
-  insurence: '',
+  insurance: '',
   passiveIncome: '',
-}));
+};
+
+const initialData = {
+  tableData: Array.from({ length: 10 }, () => ({ ...emptyRow })),
+  moneyValue: '',
+  passiveIncome: '',
+};
 
 const SecondPart = () => {
-  const [tableData, setTableData] = useLocalStorage(
-    'secondPartTable',
+  const [formData, setFormData] = useLocalStorage<typeof initialData>(
+    'secondPartData',
     initialData
   );
-  const [moneyValue, setMoneyValue] = useLocalStorage('secondPartMoney', '');
-  const [passiveIncome, setPassiveIncome] = useLocalStorage(
-    'secondPartPassiveIncome',
-    ''
-  );
 
-  const handleChangeInputMoney = (e) => {
-    setMoneyValue(e.target.value);
-  };
-  const handleChangeInputPassiveIncome = (e) => {
-    setPassiveIncome(e.target.value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleChange = (index, field, value) => {
-    setTableData((prev) =>
-      prev.map((row, i) => (i === index ? { ...row, [field]: value } : row))
-    );
+  const handleTableInputChange = (
+    index: number,
+    field: keyof typeof emptyRow,
+    value: string
+  ) => {
+    const updatedTable = [...formData.tableData];
+    updatedTable[index][field] = value;
+    setFormData({ ...formData, tableData: updatedTable });
   };
 
   return (
@@ -42,8 +44,8 @@ const SecondPart = () => {
               <input
                 type="text"
                 name="moneyValue"
-                value={moneyValue}
-                onChange={handleChangeInputMoney}
+                value={formData.moneyValue}
+                onChange={handleChange}
               />
             </td>
           </tr>
@@ -59,12 +61,12 @@ const SecondPart = () => {
           </tr>
         </thead>
         <tbody>
-          {tableData.map((row, index) => (
+          {formData.tableData.map((row: typeof emptyRow, index: number) => (
             <SecondPartTableRow
               key={index}
               row={row}
               index={index}
-              handleChange={handleChange}
+              onChange={handleTableInputChange}
             />
           ))}
         </tbody>
@@ -77,8 +79,8 @@ const SecondPart = () => {
               <input
                 type="text"
                 name="passiveIncome"
-                value={passiveIncome}
-                onChange={handleChangeInputPassiveIncome}
+                value={formData.passiveIncome}
+                onChange={handleChange}
               />
             </td>
           </tr>

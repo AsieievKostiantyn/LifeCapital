@@ -1,4 +1,20 @@
-const InvestmentsShareRow = ({ row, index, handleChange }) => {
+import { ShareTableDataType } from './Investments';
+
+interface InvestmentsShareRowProps {
+  row: ShareTableDataType;
+  index: number;
+  handleChange: (
+    index: number,
+    field: keyof ShareTableDataType,
+    value: string
+  ) => void;
+}
+
+const InvestmentsShareRow = ({
+  row,
+  index,
+  handleChange,
+}: InvestmentsShareRowProps) => {
   return (
     <tr>
       <td>

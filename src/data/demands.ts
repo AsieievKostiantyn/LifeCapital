@@ -1,10 +1,10 @@
-interface demandsCard {
+export interface DemandsCard {
   id: string;
   title: string;
   description: string;
 }
 
-export const listOfDemands: demandsCard[] = [
+export const listOfDemands: DemandsCard[] = [
   {
     id: 'П10',
     title: 'Покупець на бізнеси в сфері обслуговування (ПР, ДМ, ВМ, СК, БЦ).',

@@ -1,48 +1,70 @@
 import cls from './Investments.module.scss';
 import InvestmentsShareRow from './InvestmentsShareRow';
 import InvestmentCardPropTable from './InvestmentCardPropTable';
+import {
+  listOfSmallInvestments,
+  BusinessInvestment,
+  CurrencyInvestment,
+  ShareInvestment,
+} from '../../data/smallInvestments';
+import {
+  listOfLargeInvestments,
+  BusinessLargeInvestment,
+} from '../../data/largeInvestments';
 import useLocalStorage from '../../service/useLocalStorage';
-import { listOfSmallInvestments } from '../../data/smallInvestments';
-import { listOfLargeInvestments } from '../../data/largeInvestments';
 import { useState, useEffect } from 'react';
 import PreButtonIcon from '../../components/PreButtonIcon/PreButtonIcon';
-import shuffleList from '../../service/shuffleList';
 import CardTemplate from '../../components/CardTemplate/CardTemplate';
 
-const initialData = Array.from({ length: 5 }, (_, index) => ({
-  id: index + 1,
-  code: '',
-  packetCoast: '',
-  sharePrice: '',
-  numberOfShares: '',
-}));
+export type InvestmentType =
+  | BusinessLargeInvestment
+  | BusinessInvestment
+  | CurrencyInvestment
+  | ShareInvestment;
+
+export interface ShareTableDataType {
+  id: number;
+  code: string;
+  packetCoast: string;
+  sharePrice: string;
+  numberOfShares: string;
+}
+
+const shareTableData: ShareTableDataType[] = Array.from(
+  { length: 5 },
+  (_, index) => ({
+    id: index + 1,
+    code: '',
+    packetCoast: '',
+    sharePrice: '',
+    numberOfShares: '',
+  })
+);
 
 const Investments = () => {
-  const [largeInvestments, setLargeInvestments] = useState(
-    shuffleList(listOfLargeInvestments)
-  );
   const [isInvested, setIsInvested] = useState(false);
-  const [tableData, setTableData] = useLocalStorage(
-    'investmentsShareTable',
-    initialData
-  );
-
-  const handleChange = (index, field, value) => {
-    setTableData((prev) =>
-      prev.map((row, i) => (i === index ? { ...row, [field]: value } : row))
-    );
-  };
-
-  const [selectedInvestment, setSelectedInvestment] = useState(null);
-  const [boughtInvestment, setBoughtInvestment] = useState(() => {
-    const savedInvestments = localStorage.getItem('boughtInvestment');
-    return savedInvestments ? JSON.parse(savedInvestments) : [];
-  });
   const [searchId, setSearchId] = useState('');
+  const [selectedInvestment, setSelectedInvestment] =
+    useLocalStorage<InvestmentType | null>('selectedInvestment', null);
+  const [boughtInvestment, setBoughtInvestment] = useState<InvestmentType[]>(
+    () => {
+      const savedInvestments = localStorage.getItem('boughtInvestment');
+      return savedInvestments ? JSON.parse(savedInvestments) : [];
+    }
+  );
+  const [tableData, setTableData] = useLocalStorage<typeof shareTableData>(
+    'investmentsShareTable',
+    shareTableData
+  );
 
   useEffect(() => {
     localStorage.setItem('boughtInvestment', JSON.stringify(boughtInvestment));
-  }, [boughtInvestment]);
+    if (!selectedInvestment) return;
+    const alreadyBought = boughtInvestment.some(
+      (investment) => investment.id === selectedInvestment.id
+    );
+    if (alreadyBought) setIsInvested(true);
+  }, [boughtInvestment, selectedInvestment]);
 
   const handleRandomSmallInvestment = () => {
     const randomIndex = Math.floor(
@@ -52,14 +74,12 @@ const Investments = () => {
 
     setIsInvested(false);
   };
-
   const handleRandomLargeInvestment = () => {
-    if (largeInvestments.length === 0) return;
+    const randomIndex = Math.floor(
+      Math.random() * listOfLargeInvestments.length
+    );
 
-    const nextInvestment = largeInvestments.shift();
-    largeInvestments.push(nextInvestment);
-
-    setSelectedInvestment(nextInvestment);
+    setSelectedInvestment(listOfLargeInvestments[randomIndex]);
     setIsInvested(false);
   };
 
@@ -72,19 +92,28 @@ const Investments = () => {
     ) {
       setBoughtInvestment((prevInvestments) => [
         ...prevInvestments,
-        { ...selectedInvestment, inputValue: '' }, // Додаємо поле для input
+        { ...selectedInvestment, inputValue: '' },
       ]);
     }
 
     setIsInvested(true);
   };
-  const sellInvestment = (investmentId) => {
+  const sellInvestment = (investmentId: string) => {
     setBoughtInvestment(
       boughtInvestment.filter((value) => value.id !== investmentId)
     );
   };
 
-  const handleInputChange = (investmentId, newValue) => {
+  const handleShareTableData = (
+    index: number,
+    field: keyof ShareTableDataType,
+    value: string
+  ) => {
+    setTableData((prev) =>
+      prev.map((row, i) => (i === index ? { ...row, [field]: value } : row))
+    );
+  };
+  const handleInputChange = (investmentId: string, newValue: string) => {
     setBoughtInvestment((prevInvestments) =>
       prevInvestments.map((investment) =>
         investment.id === investmentId
@@ -94,7 +123,7 @@ const Investments = () => {
     );
   };
 
-  const searchInvestment = (e) => {
+  const searchInvestment = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     const foundInvestment =
@@ -255,7 +284,7 @@ const Investments = () => {
                     key={row.id}
                     row={row}
                     index={index}
-                    handleChange={handleChange}
+                    handleChange={handleShareTableData}
                   />
                 ))}
               </tbody>

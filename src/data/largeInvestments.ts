@@ -1,7 +1,7 @@
 const replic: string =
   '\nВикористайте цю можливість самостійно або запропонуйте її іншому гравцеві';
 
-interface businessLargeInvestment {
+export interface BusinessLargeInvestment {
   type: 'business';
   id: string;
   code: string;
@@ -11,9 +11,10 @@ interface businessLargeInvestment {
   passiveIncome: number;
   title: string;
   description: string;
+  inputValue?: string;
 }
 
-export const listOfLargeInvestments: businessLargeInvestment[] = [
+export const listOfLargeInvestments: BusinessLargeInvestment[] = [
   {
     type: 'business',
     id: 'ВІ14',

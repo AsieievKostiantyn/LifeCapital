@@ -1,4 +1,12 @@
-const InvestmentCardPropTable = ({ investment }) => {
+import { InvestmentType } from './Investments';
+
+interface InvestmentCardPropTableProps {
+  investment: InvestmentType;
+}
+
+const InvestmentCardPropTable = ({
+  investment,
+}: InvestmentCardPropTableProps) => {
   return (
     <table>
       <thead>

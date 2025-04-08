@@ -1,10 +1,10 @@
-interface eventsCard {
+export interface EventsCard {
   id: string;
   title: string;
   description: string;
 }
 
-export const listOfEvents: eventsCard[] = [
+export const listOfEvents: EventsCard[] = [
   {
     id: 'ПД9',
     title: 'Скорочення фонду оплати праці',

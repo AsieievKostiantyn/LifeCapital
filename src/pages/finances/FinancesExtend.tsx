@@ -1,5 +1,4 @@
 import useLocalStorage from '../../service/useLocalStorage';
-import cls from './Finances.module.scss';
 
 const FinancesExtend = () => {
   const [formData, setFormData] = useLocalStorage('finances', {
@@ -19,9 +18,10 @@ const FinancesExtend = () => {
     furnitureExpense: '',
     othersAmount: '',
     othersExpense: '',
+    amountOfSummaryExtends: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 

@@ -1,10 +1,10 @@
-interface expendsCard {
+export interface ExpendsCard {
   id: string;
   amountOfExpenses: number;
   description: string;
 }
 
-export const listOfExpenses: expendsCard[] = [
+export const listOfExpenses: ExpendsCard[] = [
   {
     id: 'В20',
     amountOfExpenses: 750,
@@ -101,17 +101,12 @@ export const listOfExpenses: expendsCard[] = [
     amountOfExpenses: 480,
   },
   {
-    id: 'В20',
-    description: 'У вас день народження, запросіть гостей 840.',
-    amountOfExpenses: 840,
-  },
-  {
     id: 'В14',
     description: 'Відвідайте супермаркет 450.',
     amountOfExpenses: 450,
   },
   {
-    id: 'В25',
+    id: 'В26',
     description: 'Купіть туристичний тур до Парижу 1200.',
     amountOfExpenses: 1200,
   },
@@ -120,5 +115,64 @@ export const listOfExpenses: expendsCard[] = [
     description:
       'Купіть ноутбук. Оплатіть одноразово 1500, або в розстрочку - перший платіж 100 та запишіть 1400 в кредит і 50 як відсотки за користування кредитом.',
     amountOfExpenses: 1500,
+  },
+  {
+    id: 'В34',
+    amountOfExpenses: 500,
+    description:
+      'У вас приємні клопоти. Заплатіть 500 і збільште свої додаткові витрати на 50.',
+  },
+  {
+    id: 'В29',
+    amountOfExpenses: 1000,
+    description: 'Відпочинок на морі. Заплатіть 1000.',
+  },
+  {
+    id: 'В28',
+    amountOfExpenses: 840,
+    description: 'У вас день народження. Заплатіть банку 840.',
+  },
+  {
+    id: 'В27',
+    amountOfExpenses: 160,
+    description: 'Купіть новорічні подарунки дітям. Кожна дитина по 160.',
+  },
+  {
+    id: 'В24',
+    amountOfExpenses: 650,
+    description:
+      'Вас підвищили на посаді й збільшили зарплату на 750. Терміново купіть нове ділове вбрання за 650.',
+  },
+  {
+    id: 'В1',
+    amountOfExpenses: 700,
+    description: 'Дарунок собі для гарного настрою. Заплатіть 700.',
+  },
+  {
+    id: 'В3',
+    amountOfExpenses: 450,
+    description: 'Відвідайте боулінг-клуб. Заплатіть 450.',
+  },
+  {
+    id: 'В5',
+    amountOfExpenses: 450,
+    description: 'Купіть дітям велосипед за 450.',
+  },
+  {
+    id: 'В7',
+    amountOfExpenses: 500,
+    description:
+      'Для просування по службі пройдіть тренінг за 500 і збільште розмір оплати праці на 200.',
+  },
+  {
+    id: 'В8',
+    amountOfExpenses: 800,
+    description:
+      'Пройдіть курси водіння за 800 і збільште розмір оплати праці на 350.',
+  },
+  {
+    id: 'В12',
+    amountOfExpenses: 850,
+    description: 'Відвідайте командну вечерю. Заплатіть 850.',
   },
 ];

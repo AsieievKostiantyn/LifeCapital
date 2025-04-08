@@ -1,0 +1,119 @@
+{
+  "demands": {
+    "example": {
+      "id": "example",
+      "title": "Example demand",
+      "description": "This is a sample document",
+      "codes": []
+    }
+  },
+  "events": {
+    "example": {
+      "id": "example",
+      "title": "Example event",
+      "description": "This is a sample event"
+    }
+  },
+  "expenses": {
+    "example": {
+      "id": "example",
+      "amountOfExpenses": 100,
+      "description": "Sample expense"
+    }
+  },
+  "highExpenses": {
+    "example": {
+      "id": "example",
+      "amountOfExpenses": 500,
+      "description": "Sample high expense"
+    }
+  },
+  "largeInvestments": {
+    "example": {
+      "type": "business",
+      "id": "example",
+      "code": "BUS001",
+      "cost": 10000,
+      "firstPayment": 3000,
+      "credit": 7000,
+      "passiveIncome": 800,
+      "title": "Large Investment Example",
+      "description": "Sample large investment"
+    }
+  },
+  "smallInvestments": {
+    "business-example": {
+      "type": "business",
+      "id": "business-example",
+      "code": "SMB001",
+      "cost": 5000,
+      "firstPayment": 1500,
+      "credit": 3500,
+      "passiveIncome": 400,
+      "title": "Small Biz Investment",
+      "description": "Sample small business"
+    },
+    "currency-example": {
+      "type": "currency",
+      "id": "currency-example",
+      "exchangeRate": "37.5",
+      "priceRange": "36-39",
+      "title": "Currency Investment",
+      "description": "Sample currency investment"
+    },
+    "shares-example": {
+      "type": "shares",
+      "id": "shares-example",
+      "currentlyPrice": 120,
+      "priceRange": "100-140",
+      "title": "Share Investment",
+      "description": "Sample share investment"
+    }
+  },
+  "playerLegend": {
+    "designer": {
+      "profession": "Дизайнер",
+      "salary": 500,
+      "children": 1,
+      "assets": {
+        "deposit": 0,
+        "gold": 0,
+        "savingsInsurance": 0,
+        "riskInsurance": 0,
+        "intellectualProperty": 0,
+        "intellectualPropertyIncome": 0
+      },
+      "costs": {
+        "incomeTax": 50,
+        "utilities": 70,
+        "householdExpenses": 190,
+        "totalExpenses": 310,
+        "otherExpenses": 0,
+        "childExpenses": 60,
+        "credits": {
+          "realEstate": {
+            "amountOfCredit": 0,
+            "interest": 0
+          },
+          "car": {
+            "amountOfCredit": 0,
+            "interest": 0
+          },
+          "machinery": {
+            "amountOfCredit": 0,
+            "interest": 0
+          },
+          "furniture": {
+            "amountOfCredit": 0,
+            "interest": 0
+          },
+          "otherCredits": {
+            "amountOfCredit": 0,
+            "interest": 0
+          }
+        }
+      }
+    }
+  },
+  "playerStates": {}
+}

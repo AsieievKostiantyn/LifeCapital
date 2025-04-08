@@ -1,4 +1,9 @@
-const CardTemplate = ({ borderColor, children }) => {
+interface CardTemplateProps {
+  borderColor: string;
+  children?: React.ReactNode;
+}
+
+const CardTemplate = ({ borderColor, children }: CardTemplateProps) => {
   return (
     <div
       className="card-template"

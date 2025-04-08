@@ -3,7 +3,7 @@ const replic: string =
 
 const currencyReplic: string = 'Кожен може купити або продати за цією ціною';
 
-interface businessInvestment {
+export interface BusinessInvestment {
   type: 'business';
   id: string;
   code: string;
@@ -13,30 +13,33 @@ interface businessInvestment {
   passiveIncome: number;
   title: string;
   description: string;
+  inputValue?: string;
 }
 
-interface currencyInvestment {
+export interface CurrencyInvestment {
   type: 'currency';
   id: string;
   exchangeRate: string;
   priceRange: string;
   title: string;
   description: string;
+  inputValue?: string;
 }
 
-interface shareInvestment {
+export interface ShareInvestment {
   type: 'shares';
   id: string;
   currentlyPrice: number;
   priceRange: string;
   title: string;
   description: string;
+  inputValue?: string;
 }
 
 export const listOfSmallInvestments: (
-  | businessInvestment
-  | currencyInvestment
-  | shareInvestment
+  | BusinessInvestment
+  | CurrencyInvestment
+  | ShareInvestment
 )[] = [
   {
     type: 'shares',
@@ -474,7 +477,7 @@ export const listOfSmallInvestments: (
     passiveIncome: 400,
     title: 'Інтелектуальна власність (ІВ)',
     description:
-      'Ви мажте можливість придбати патент на об`єкт інтелектуальної власності. Використайте цю можливість самостійно або запропонуйте її іншому гравцеві.',
+      'Ви маєте можливість придбати патент на об`єкт інтелектуальної власності. Використайте цю можливість самостійно або запропонуйте її іншому гравцеві.',
   },
   {
     type: 'currency',

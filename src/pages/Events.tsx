@@ -1,20 +1,34 @@
 import cls from './styles/Events.module.scss';
 
-import { listOfExpenses } from '../data/expends';
-import { listOfDemands } from '../data/demands';
-import { listOfEvents } from '../data/events';
+import { listOfExpenses, ExpendsCard } from '../data/expenses';
+import { listOfDemands, DemandsCard } from '../data/demands';
+import { listOfEvents, EventsCard } from '../data/events';
+import { listOfHighExpenses, HighExpensesCard } from '../data/highExpenses';
 
-import { useState } from 'react';
 import CardTemplate from '../components/CardTemplate/CardTemplate';
+import useLocalStorage from '../service/useLocalStorage';
 
 const Events = () => {
-  const [selectedExpense, setSelectedExpense] = useState(null);
-  const [selectedDemand, setSelectedDemand] = useState(null);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [selectedDemand, setSelectedDemand] =
+    useLocalStorage<DemandsCard | null>('demandsCard', null);
+  const [selectedEvent, setSelectedEvent] = useLocalStorage<EventsCard | null>(
+    'eventsCard',
+    null
+  );
+  const [selectedExpense, setSelectedExpense] = useLocalStorage<
+    ExpendsCard | HighExpensesCard | null
+  >('expensesCard', null);
+  const [isHighExpensesActive, setIsHighExpensesActive] =
+    useLocalStorage<boolean>('isHighExpensesActive', false);
 
   const handleRandomExpense = () => {
-    const randomIndex = Math.floor(Math.random() * listOfExpenses.length);
-    setSelectedExpense(listOfExpenses[randomIndex]);
+    if (isHighExpensesActive) {
+      const randomIndex = Math.floor(Math.random() * listOfHighExpenses.length);
+      setSelectedExpense(listOfHighExpenses[randomIndex]);
+    } else {
+      const randomIndex = Math.floor(Math.random() * listOfExpenses.length);
+      setSelectedExpense(listOfExpenses[randomIndex]);
+    }
   };
 
   const handleRandomDemand = () => {
@@ -73,6 +87,28 @@ const Events = () => {
           </CardTemplate>
         </div>
         <div className={cls.cardChooseContainer}>
+          <div className={cls.expenseToggleWrapper}>
+            <label className={cls.switch}>
+              <input
+                type="checkbox"
+                checked={isHighExpensesActive}
+                onChange={() => setIsHighExpensesActive((prev) => !prev)}
+                aria-label={
+                  isHighExpensesActive
+                    ? 'Відображаються великі витрати'
+                    : 'Відображаються малі витрати'
+                }
+              />
+              <span className={cls.slider}></span>
+            </label>
+
+            <span
+              className={`${cls.label} ${isHighExpensesActive ? cls.active : ''}`}
+              aria-hidden="true"
+            >
+              {isHighExpensesActive ? 'Великі витрати' : 'Маленькі витрати'}
+            </span>
+          </div>
           <button onClick={handleRandomExpense}>Витрати</button>
           <CardTemplate borderColor={'rgb(117, 18, 18)'}>
             {selectedExpense ? (
