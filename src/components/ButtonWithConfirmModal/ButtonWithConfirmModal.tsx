@@ -1,7 +1,23 @@
 import { useState, useEffect, useRef } from 'react';
-import cls from './FinishGameButton.module.scss';
+import cls from './ButtonWithConfirmModal.module.scss';
 
-const FinishGameButton = () => {
+interface ButtonWithConfirmModalProps {
+  buttonText: string;
+  modalTitle: string;
+  modalDescription: string;
+  confirmText?: string;
+  cancelText?: string;
+  onConfirm: () => void;
+}
+
+const ButtonWithConfirmModal = ({
+  buttonText,
+  modalTitle,
+  modalDescription,
+  confirmText = 'Підтвердити',
+  cancelText = 'Скасувати',
+  onConfirm,
+}: ButtonWithConfirmModalProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -27,15 +43,15 @@ const FinishGameButton = () => {
     }
   };
 
-  const handleFinishGame = () => {
-    localStorage.clear();
-    window.location.reload();
+  const handleConfirm = () => {
+    onConfirm();
+    setIsModalOpen(false);
   };
 
   return (
     <>
-      <button className={cls.finishButton} onClick={() => setIsModalOpen(true)}>
-        Завершити гру
+      <button className={cls.button} onClick={() => setIsModalOpen(true)}>
+        {buttonText}
       </button>
 
       {isModalOpen && (
@@ -49,19 +65,17 @@ const FinishGameButton = () => {
             tabIndex={-1}
             ref={modalRef}
           >
-            <h2 id="modal-title">Підтвердження завершення гри</h2>
-            <p id="modal-desc">
-              Ви впевнені, що хочете завершити гру? Усі дані буде втрачено.
-            </p>
+            <h2 id="modal-title">{modalTitle}</h2>
+            <p id="modal-desc">{modalDescription}</p>
             <div className={cls.actions}>
-              <button onClick={handleFinishGame} className={cls.confirmButton}>
-                Так, завершити
+              <button onClick={handleConfirm} className={cls.confirmButton}>
+                {confirmText}
               </button>
               <button
                 onClick={() => setIsModalOpen(false)}
                 className={cls.cancelButton}
               >
-                Скасувати
+                {cancelText}
               </button>
             </div>
           </div>
@@ -71,4 +85,4 @@ const FinishGameButton = () => {
   );
 };
 
-export default FinishGameButton;
+export default ButtonWithConfirmModal;

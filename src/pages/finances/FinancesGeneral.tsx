@@ -1,5 +1,5 @@
+import ButtonWithConfirmModal from '../../components/ButtonWithConfirmModal/ButtonWithConfirmModal';
 import useLocalStorage from '../../service/useLocalStorage';
-import FinishGameButton from '../../components/FinishGameButton/FinishGameButton';
 
 const FinancesGeneral = () => {
   const [formData, setFormData] = useLocalStorage('finances', {
@@ -12,6 +12,11 @@ const FinancesGeneral = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFinishGame = () => {
+    localStorage.clear();
+    window.location.reload();
   };
 
   return (
@@ -81,7 +86,14 @@ const FinancesGeneral = () => {
         </tbody>
       </table>
       <div></div>
-      <FinishGameButton />
+      <ButtonWithConfirmModal
+        buttonText="Завершити гру"
+        modalTitle="Підтвердження завершення гри"
+        modalDescription="Ви впевнені, що хочете завершити гру? Усі дані буде втрачено."
+        confirmText="Так, завершити"
+        cancelText="Скасувати"
+        onConfirm={handleFinishGame}
+      />
     </div>
   );
 };

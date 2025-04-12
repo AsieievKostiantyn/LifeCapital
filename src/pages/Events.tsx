@@ -79,6 +79,7 @@ const Events = () => {
                       __html: selectedDemand.description,
                     }}
                   />
+                  <p>Коди: {selectedDemand.codes.join(', ')}</p>
                 </div>
               </>
             ) : (

@@ -226,41 +226,45 @@ const Investments = () => {
           <h3 className="table-header">Бізнес та нерухомість</h3>
           <div className={cls.boughtInvestmentList}>
             {boughtInvestment.length ? (
-              boughtInvestment.map((value) => (
-                <CardTemplate
-                  borderColor={'rgba(221, 146, 6, 0.845)'}
-                  key={value.id}
-                >
-                  <div className={cls.investmentInfoContainer}>
-                    <p>ID: {value.id}</p>
-                    <p>{value.title}</p>
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: value.description,
-                      }}
-                    />
-                    <InvestmentCardPropTable
-                      key={value.id}
-                      investment={value}
-                    />
-                    <input
-                      type="text"
-                      value={value.inputValue}
-                      onChange={(e) =>
-                        handleInputChange(value.id, e.target.value)
-                      }
-                      placeholder="Інформація про угоду"
-                    />
-                    <button
-                      onClick={() => sellInvestment(value.id)}
-                      style={{ border: '1px solid red' }}
-                    >
-                      <PreButtonIcon bgColor={'red'} />
-                      Продати
-                    </button>
-                  </div>
-                </CardTemplate>
-              ))
+              boughtInvestment.map((value) =>
+                value.type === 'business' ? (
+                  <CardTemplate
+                    borderColor={'rgba(221, 146, 6, 0.845)'}
+                    key={value.id}
+                  >
+                    <div className={cls.investmentInfoContainer}>
+                      <p>ID: {value.id}</p>
+                      <p>{value.title}</p>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: value.description,
+                        }}
+                      />
+                      <InvestmentCardPropTable
+                        key={value.id}
+                        investment={value}
+                      />
+                      <input
+                        type="text"
+                        value={value.inputValue}
+                        onChange={(e) =>
+                          handleInputChange(value.id, e.target.value)
+                        }
+                        placeholder="Інформація про угоду"
+                      />
+                      <button
+                        onClick={() => sellInvestment(value.id)}
+                        style={{ border: '1px solid red' }}
+                      >
+                        <PreButtonIcon bgColor={'red'} />
+                        Продати
+                      </button>
+                    </div>
+                  </CardTemplate>
+                ) : (
+                  ''
+                )
+              )
             ) : (
               <p>У вас немає жодної інвестиції</p>
             )}
@@ -269,7 +273,42 @@ const Investments = () => {
         <div>
           <div>
             <h3 className="table-header">Цінні папери</h3>
-            <table>
+            <div className={cls.boughtInvestmentList}>
+              {boughtInvestment.length
+                ? boughtInvestment.map((value) =>
+                    value.type === 'shares' || value.type === 'currency' ? (
+                      <CardTemplate
+                        borderColor={'rgba(221, 146, 6, 0.845)'}
+                        key={value.id}
+                      >
+                        <div className={cls.investmentInfoContainer}>
+                          <p>ID: {value.id}</p>
+                          <p>{value.title}</p>
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html: value.description,
+                            }}
+                          />
+                          <InvestmentCardPropTable
+                            key={value.id}
+                            investment={value}
+                          />
+                          <button
+                            onClick={() => sellInvestment(value.id)}
+                            style={{ border: '1px solid red' }}
+                          >
+                            <PreButtonIcon bgColor={'red'} />
+                            Продати
+                          </button>
+                        </div>
+                      </CardTemplate>
+                    ) : (
+                      ''
+                    )
+                  )
+                : ''}
+            </div>
+            <table style={{ marginTop: '20px' }}>
               <thead>
                 <tr>
                   <th>Код</th>

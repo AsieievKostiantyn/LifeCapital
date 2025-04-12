@@ -10,17 +10,17 @@ const Finances = () => {
       <nav className="borderBottom">
         <ul className={cls.navUl}>
           <li>
-            <Link to={'/finances'} className={cls.link}>
+            <Link to={'/finances'} className={cls.link} accessKey="1">
               Основна
             </Link>
           </li>
           <li>
-            <Link to={'/finances/income'} className={cls.link}>
+            <Link to={'/finances/income'} className={cls.link} accessKey="2">
               Доходи
             </Link>
           </li>
           <li>
-            <Link to={'/finances/extend'} className={cls.link}>
+            <Link to={'/finances/extend'} className={cls.link} accessKey="3">
               Витрати
             </Link>
           </li>

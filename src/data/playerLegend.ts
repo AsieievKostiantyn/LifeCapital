@@ -1,3 +1,37 @@
+export interface PlayerLegend {
+  profession: string;
+  salary: number;
+  children: number;
+  assets: {
+    deposit: number;
+    gold: number;
+    savingsInsurance: number;
+    riskInsurance: number;
+    intellectualProperty: number;
+    intellectualPropertyIncome: number;
+  };
+  costs: {
+    incomeTax: number;
+    utilities: number;
+    householdExpenses: number;
+    totalExpenses: number;
+    otherExpenses: number;
+    childExpenses: number;
+    credits: {
+      realEstate: CreditItem;
+      car: CreditItem;
+      machinery: CreditItem;
+      furniture: CreditItem;
+      otherCredits: CreditItem;
+    };
+  };
+}
+
+interface CreditItem {
+  amountOfCredit: number;
+  interest: number;
+}
+
 export const listOfPlayersLegends = [
   {
     profession: 'Дизайнер',
