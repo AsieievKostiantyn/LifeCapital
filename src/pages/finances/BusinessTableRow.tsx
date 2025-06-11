@@ -1,11 +1,10 @@
-import { businessTableRowType } from './FinancesIncome';
-
+import { BusinessTableRowType } from '../../types/db';
 interface BusinessTableRowProps {
-  row: businessTableRowType;
+  row: BusinessTableRowType;
   index: number;
   handleChange: (
     index: number,
-    field: keyof businessTableRowType,
+    field: keyof BusinessTableRowType,
     value: string
   ) => void;
 }

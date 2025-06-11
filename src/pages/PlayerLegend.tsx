@@ -1,19 +1,31 @@
 import cls from './styles/PlayerLegend.module.scss';
-import { useState } from 'react';
-import { listOfPlayersLegends } from '../data/playerLegend';
+import { useEffect, useState } from 'react';
+import { listOfPlayersLegends, PlayerLegendType } from '../data/playerLegend';
+import { useSessionLocalStorage } from '../service/hooks/useSessionLocalStorage';
 
 const PlayerLegend = () => {
-  const [selectedLegend, setSelectedLegend] = useState(() => {
-    const savedLegend = localStorage.getItem('selectedLegend');
-    return savedLegend ? JSON.parse(savedLegend) : null;
-  });
+  const [selectedLegend, setSelectedLegend] = useState<PlayerLegendType | null>(
+    null
+  );
+  const [selectedProfession, setSelectedProfession] =
+    useSessionLocalStorage<string>('legend-ProfessionName', '');
+
+  useEffect(() => {
+    if (selectedProfession) {
+      const legend = listOfPlayersLegends.find(
+        (legend): legend is PlayerLegendType =>
+          legend.profession === selectedProfession
+      );
+      setSelectedLegend(legend ?? null);
+    }
+  }, [selectedProfession]);
 
   const getRandomLegend = () => {
     const randomIndex = Math.floor(Math.random() * listOfPlayersLegends.length);
     const randomLegend = listOfPlayersLegends[randomIndex];
 
-    setSelectedLegend(randomLegend);
-    localStorage.setItem('selectedLegend', JSON.stringify(randomLegend));
+    setSelectedLegend(randomLegend as PlayerLegendType);
+    setSelectedProfession(randomLegend.profession);
   };
 
   return (

@@ -1,22 +1,78 @@
+import { doc, updateDoc } from 'firebase/firestore';
 import ButtonWithConfirmModal from '../../components/ButtonWithConfirmModal/ButtonWithConfirmModal';
-import useLocalStorage from '../../service/useLocalStorage';
+import { useGameSession } from '../../context/GameSession/useGameSession';
+import { useAuth } from '../../context/useAuth';
+import { useSessionLocalStorage } from '../../service/hooks/useSessionLocalStorage';
+import { db } from '../../service/firebase';
+import { InitialDataType } from '../../service/gameSessions/createGameSession';
+
+export type FinancesGeneralForm = {
+  balance: string;
+  depositAmount: string;
+  amountOfSummaryIncomes: string;
+  amountOfSummaryExpenses: string;
+  amountOfFreeMoney: string;
+};
 
 const FinancesGeneral = () => {
-  const [formData, setFormData] = useLocalStorage('finances', {
-    balance: '',
-    depositAmount: '',
-    amountOfSummaryIncomes: '',
-    amountOfSummaryExtends: '',
-    amountOfFreeMoney: '',
-  });
+  const { sessionID, getFromLocalSession } = useGameSession();
+  const { userData } = useAuth();
+  const [formForGlobalData, setFormForGlobalData] =
+    useSessionLocalStorage<FinancesGeneralForm>('finGlobal', {
+      balance: '',
+      depositAmount: '',
+      amountOfSummaryIncomes: '',
+      amountOfSummaryExpenses: '',
+      amountOfFreeMoney: '',
+    });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormForGlobalData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const handleFinishGame = () => {
     localStorage.clear();
     window.location.reload();
+  };
+
+  const pushUserStateToDB = async () => {
+    if (!userData) return;
+    const keys: (keyof InitialDataType)[] = [
+      'finGlobal',
+      'finIncomes',
+      'finExpenses',
+      'invShareTable',
+      'finBusinessTable',
+      'abTable',
+    ];
+
+    const dataToUpdate: Partial<InitialDataType> = {};
+
+    keys.forEach((key) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const value = getFromLocalSession<any>(key);
+      if (value !== null) {
+        dataToUpdate[key] = value;
+      }
+    });
+
+    if (Object.keys(dataToUpdate).length === 0) {
+      console.warn('Nothing to update — all fields are null.');
+      return;
+    }
+
+    const docRef = doc(
+      db,
+      'gameSessions',
+      sessionID,
+      'gameState',
+      userData.displayName
+    );
+
+    await updateDoc(docRef, dataToUpdate);
   };
 
   return (
@@ -30,7 +86,7 @@ const FinancesGeneral = () => {
                 className="summary-td-input"
                 name="balance"
                 type="text"
-                value={formData.balance}
+                value={formForGlobalData.balance}
                 onChange={handleChange}
               />
             </td>
@@ -42,7 +98,7 @@ const FinancesGeneral = () => {
                 className="summary-td-input"
                 name="depositAmount"
                 type="text"
-                value={formData.depositAmount}
+                value={formForGlobalData.depositAmount}
                 onChange={handleChange}
               />
             </td>
@@ -54,7 +110,7 @@ const FinancesGeneral = () => {
                 className="summary-td-input"
                 name="amountOfSummaryIncomes"
                 type="text"
-                value={formData.amountOfSummaryIncomes}
+                value={formForGlobalData.amountOfSummaryIncomes}
                 onChange={handleChange}
               />
             </td>
@@ -64,9 +120,9 @@ const FinancesGeneral = () => {
             <td className="summary-td">
               <input
                 className="summary-td-input"
-                name="amountOfSummaryExtends"
+                name="amountOfSummaryExpenses"
                 type="text"
-                value={formData.amountOfSummaryExtends}
+                value={formForGlobalData.amountOfSummaryExpenses}
                 onChange={handleChange}
               />
             </td>
@@ -78,7 +134,7 @@ const FinancesGeneral = () => {
                 className="summary-td-input"
                 name="amountOfFreeMoney"
                 type="text"
-                value={formData.amountOfFreeMoney}
+                value={formForGlobalData.amountOfFreeMoney}
                 onChange={handleChange}
               />
             </td>
@@ -94,6 +150,7 @@ const FinancesGeneral = () => {
         cancelText="Скасувати"
         onConfirm={handleFinishGame}
       />
+      <button onClick={pushUserStateToDB}>Save Data</button>
     </div>
   );
 };

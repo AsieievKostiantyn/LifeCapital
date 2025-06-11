@@ -1,51 +1,85 @@
 import cls from './styles/Events.module.scss';
 
-import { listOfExpenses, ExpendsCard } from '../data/expenses';
-import { listOfDemands, DemandsCard } from '../data/demands';
-import { listOfEvents, EventsCard } from '../data/events';
-import { listOfHighExpenses, HighExpensesCard } from '../data/highExpenses';
+import { ExpendsCard } from '../data/expenses';
+import { DemandsCard } from '../data/demands';
+import { EventsCard } from '../data/events';
+import { HighExpensesCard } from '../data/highExpenses';
 
 import CardTemplate from '../components/CardTemplate/CardTemplate';
-import useLocalStorage from '../service/useLocalStorage';
+import { useSessionLocalStorage } from '../service/hooks/useSessionLocalStorage';
+import { useGameSession } from '../context/GameSession/useGameSession';
+import { useAuth } from '../context/useAuth';
 
 const Events = () => {
+  const { getCardList, updateCardList, setCurrentCard } = useGameSession();
+  const { userData } = useAuth();
   const [selectedDemand, setSelectedDemand] =
-    useLocalStorage<DemandsCard | null>('demandsCard', null);
-  const [selectedEvent, setSelectedEvent] = useLocalStorage<EventsCard | null>(
-    'eventsCard',
-    null
-  );
-  const [selectedExpense, setSelectedExpense] = useLocalStorage<
+    useSessionLocalStorage<DemandsCard | null>('actDemands', null);
+  const [selectedEvent, setSelectedEvent] =
+    useSessionLocalStorage<EventsCard | null>('actEvents', null);
+  const [selectedExpense, setSelectedExpense] = useSessionLocalStorage<
     ExpendsCard | HighExpensesCard | null
-  >('expensesCard', null);
+  >('actExpenses', null);
   const [isHighExpensesActive, setIsHighExpensesActive] =
-    useLocalStorage<boolean>('isHighExpensesActive', false);
+    useSessionLocalStorage<boolean>('actToggle', false);
 
-  const handleRandomExpense = () => {
+  const getExpense = async () => {
     if (isHighExpensesActive) {
-      const randomIndex = Math.floor(Math.random() * listOfHighExpenses.length);
-      setSelectedExpense(listOfHighExpenses[randomIndex]);
+      const list = await getCardList<HighExpensesCard>('highExpenses');
+      const card = list.shift();
+      if (!card) return;
+      setSelectedExpense(card);
+      list.push(card);
+      await setCurrentCard('expense', {
+        card: card,
+        playerAdded: userData?.displayName,
+      });
+      await updateCardList('highExpenses', list);
     } else {
-      const randomIndex = Math.floor(Math.random() * listOfExpenses.length);
-      setSelectedExpense(listOfExpenses[randomIndex]);
+      const list = await getCardList<ExpendsCard>('expenses');
+      const card = list.shift();
+      if (!card) return;
+      setSelectedExpense(card);
+      list.push(card);
+      await setCurrentCard('expense', {
+        card: card,
+        playerAdded: userData?.displayName,
+      });
+      await updateCardList('expenses', list);
     }
   };
 
-  const handleRandomDemand = () => {
-    const randomIndex = Math.floor(Math.random() * listOfDemands.length);
-    setSelectedDemand(listOfDemands[randomIndex]);
+  const getDemand = async () => {
+    const list = await getCardList<DemandsCard>('demands');
+    const card = list.shift();
+    if (!card) return;
+    setSelectedDemand(card);
+    list.push(card);
+    await setCurrentCard('demand', {
+      card: card,
+      playerAdded: userData?.displayName,
+    });
+    await updateCardList('demands', list);
   };
 
-  const handleRandomEvent = () => {
-    const randomIndex = Math.floor(Math.random() * listOfEvents.length);
-    setSelectedEvent(listOfEvents[randomIndex]);
+  const getEvent = async () => {
+    const list = await getCardList<DemandsCard>('events');
+    const card = list.shift();
+    if (!card) return;
+    setSelectedEvent(card);
+    list.push(card);
+    await setCurrentCard('event', {
+      card: card,
+      playerAdded: userData?.displayName,
+    });
+    await updateCardList('events', list);
   };
 
   return (
     <div className="container">
       <div className={cls.wrapper}>
         <div className={cls.cardChooseContainer}>
-          <button onClick={handleRandomEvent}>Подія</button>
+          <button onClick={getEvent}>Подія</button>
           <CardTemplate borderColor={'purple'}>
             {selectedEvent ? (
               <>
@@ -66,7 +100,7 @@ const Events = () => {
           </CardTemplate>
         </div>
         <div className={cls.cardChooseContainer}>
-          <button onClick={handleRandomDemand}>Попит</button>
+          <button onClick={getDemand}>Попит</button>
           <CardTemplate borderColor={'#328ff3ca'}>
             {selectedDemand ? (
               <>
@@ -110,7 +144,7 @@ const Events = () => {
               {isHighExpensesActive ? 'Великі витрати' : 'Маленькі витрати'}
             </span>
           </div>
-          <button onClick={handleRandomExpense}>Витрати</button>
+          <button onClick={getExpense}>Витрати</button>
           <CardTemplate borderColor={'rgb(117, 18, 18)'}>
             {selectedExpense ? (
               <>

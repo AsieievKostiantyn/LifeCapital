@@ -1,0 +1,68 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height: 100vh;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #121212;
+  padding-left: 20px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+
+  @media (max-width: 700px) {
+    transform: translateX(-100%);
+  }
+}
+
+.open {
+  transform: translateX(0);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  height: 48px;
+}
+
+.authDataContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 20px 20px 0;
+
+  a,
+  p {
+    font-size: 24px;
+    text-align: center;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.link {
+  padding: 3px 10px;
+  background-color: transparent;
+}
+
+.link:hover {
+  background-color: #01346bca;
+  transition: all 1s;
+}

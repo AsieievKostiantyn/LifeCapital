@@ -1,9 +1,13 @@
-import useLocalStorage from '../../service/useLocalStorage';
+import { useSessionLocalStorage } from '../../service/hooks/useSessionLocalStorage';
 
 const FinancesExtend = () => {
-  const [formData, setFormData] = useLocalStorage('finances', {
-    expenseTaxIncome: '',
-    expenseUtilities: '',
+  const [formForGlobalData, setFormForGlobalData] = useSessionLocalStorage(
+    'finGlobal',
+    {
+      amountOfSummaryExpenses: '',
+    }
+  );
+  const [formData, setFormData] = useSessionLocalStorage('finExpenses', {
     expenseMonthlyHousehold: '',
     expenseAdditional: '',
     expenseNumChildren: '',
@@ -18,11 +22,18 @@ const FinancesExtend = () => {
     furnitureExpense: '',
     othersAmount: '',
     othersExpense: '',
-    amountOfSummaryExtends: '',
   });
 
+  const handleGlobalDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormForGlobalData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   return (
@@ -99,111 +110,113 @@ const FinancesExtend = () => {
               <th>Сплата, %</th>
             </tr>
           </thead>
-          <tr>
-            <td className="td-text">На нерухомість</td>
-            <td>
-              <input
-                className="summary-input"
-                name="realEstateAmount"
-                type="text"
-                value={formData.realEstateAmount}
-                onChange={handleChange}
-              />
-            </td>
-            <td>
-              <input
-                className="expense-input"
-                name="realEstateExpense"
-                type="text"
-                value={formData.realEstateExpense}
-                onChange={handleChange}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td className="td-text">На автомобіль</td>
-            <td>
-              <input
-                className="summary-input"
-                name="carAmount"
-                type="text"
-                value={formData.carAmount}
-                onChange={handleChange}
-              />
-            </td>
-            <td>
-              <input
-                className="expense-input"
-                name="carExpense"
-                type="text"
-                value={formData.carExpense}
-                onChange={handleChange}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td className="td-text">На побутову техніку</td>
-            <td>
-              <input
-                className="summary-input"
-                name="appliancesAmount"
-                type="text"
-                value={formData.appliancesAmount}
-                onChange={handleChange}
-              />
-            </td>
-            <td>
-              <input
-                className="expense-input"
-                name="appliancesExpense"
-                type="text"
-                value={formData.appliancesExpense}
-                onChange={handleChange}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td className="td-text">На меблі</td>
-            <td>
-              <input
-                className="summary-input"
-                name="furnitureAmount"
-                type="text"
-                value={formData.furnitureAmount}
-                onChange={handleChange}
-              />
-            </td>
-            <td>
-              <input
-                className="expense-input"
-                name="furnitureExpense"
-                type="text"
-                value={formData.furnitureExpense}
-                onChange={handleChange}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td className="td-text">Інші кредити 3%</td>
-            <td>
-              <input
-                className="summary-input"
-                name="othersAmount"
-                type="text"
-                value={formData.othersAmount}
-                onChange={handleChange}
-              />
-            </td>
-            <td>
-              <input
-                className="expense-input"
-                name="othersExpense"
-                type="text"
-                value={formData.othersExpense}
-                onChange={handleChange}
-              />
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <td className="td-text">На нерухомість</td>
+              <td>
+                <input
+                  className="summary-input"
+                  name="realEstateAmount"
+                  type="text"
+                  value={formData.realEstateAmount}
+                  onChange={handleChange}
+                />
+              </td>
+              <td>
+                <input
+                  className="expense-input"
+                  name="realEstateExpense"
+                  type="text"
+                  value={formData.realEstateExpense}
+                  onChange={handleChange}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="td-text">На автомобіль</td>
+              <td>
+                <input
+                  className="summary-input"
+                  name="carAmount"
+                  type="text"
+                  value={formData.carAmount}
+                  onChange={handleChange}
+                />
+              </td>
+              <td>
+                <input
+                  className="expense-input"
+                  name="carExpense"
+                  type="text"
+                  value={formData.carExpense}
+                  onChange={handleChange}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="td-text">На побутову техніку</td>
+              <td>
+                <input
+                  className="summary-input"
+                  name="appliancesAmount"
+                  type="text"
+                  value={formData.appliancesAmount}
+                  onChange={handleChange}
+                />
+              </td>
+              <td>
+                <input
+                  className="expense-input"
+                  name="appliancesExpense"
+                  type="text"
+                  value={formData.appliancesExpense}
+                  onChange={handleChange}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="td-text">На меблі</td>
+              <td>
+                <input
+                  className="summary-input"
+                  name="furnitureAmount"
+                  type="text"
+                  value={formData.furnitureAmount}
+                  onChange={handleChange}
+                />
+              </td>
+              <td>
+                <input
+                  className="expense-input"
+                  name="furnitureExpense"
+                  type="text"
+                  value={formData.furnitureExpense}
+                  onChange={handleChange}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="td-text">Інші кредити 3%</td>
+              <td>
+                <input
+                  className="summary-input"
+                  name="othersAmount"
+                  type="text"
+                  value={formData.othersAmount}
+                  onChange={handleChange}
+                />
+              </td>
+              <td>
+                <input
+                  className="expense-input"
+                  name="othersExpense"
+                  type="text"
+                  value={formData.othersExpense}
+                  onChange={handleChange}
+                />
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
 
@@ -214,10 +227,10 @@ const FinancesExtend = () => {
             <td className="summary-td">
               <input
                 className="summary-td-input"
-                name="amountOfSummaryExtends"
+                name="amountOfSummaryExpenses"
                 type="text"
-                value={formData.amountOfSummaryExtends}
-                onChange={handleChange}
+                value={formForGlobalData.amountOfSummaryExpenses}
+                onChange={handleGlobalDataChange}
               />
             </td>
           </tr>

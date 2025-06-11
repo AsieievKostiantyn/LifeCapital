@@ -16,7 +16,48 @@ import FinancialFreedom from './pages/FinancialFreedom/FinancialFreedom.tsx';
 import LoginPage from './pages/LoginPage/LoginPage.tsx';
 import RegisterPage from './pages/LoginPage/RegisterPage.tsx';
 import ForgetPasswordPage from './pages/LoginPage/ForgetPasswordPage.tsx';
-import RedirectIfAuth from './components/RedirectIfAuth.tsx';
+import ProtectedRoute from './components/ProtectedRoute.tsx';
+import Rules from './pages/Rules/Rules.tsx';
+import MyGames from './pages/MyGames/MyGames.tsx';
+import GameSessionPage from './pages/GameSessionPage/GameSessionPage.tsx';
+import CreateGameForm from './components/CreateGameForm/CreateGameForm.tsx';
+import { GameSessionProvider } from './context/GameSession/GameSessionProvider.tsx';
+import HostCardTable from './pages/HostCardTable/HostCardTable.tsx';
+import PlayersState from './pages/HostPlayersState/HostPlayersState.tsx';
+import NavBar from './pages/HostPlayersState/NavBar.tsx';
+import SessionSetting from './pages/Host/SessionSettings/SessionSetting.tsx';
+
+const playerRoutes = [
+  { path: 'legend', element: <PlayerLegend /> },
+  { path: 'investments', element: <Investments /> },
+  { path: 'events', element: <Events /> },
+  {
+    path: 'finances',
+    element: <Finances />,
+    children: [
+      { index: true, element: <FinancesGeneral /> },
+      { path: 'income', element: <FinancesIncome /> },
+      { path: 'extend', element: <FinancesExtend /> },
+    ],
+  },
+  { path: 'airbag', element: <AirBag /> },
+  { path: 'financial-freedom', element: <FinancialFreedom /> },
+];
+
+const hostRoutes = [
+  { path: 'settings', element: <SessionSetting /> },
+  { path: 'cards', element: <HostCardTable /> },
+  {
+    path: 'stat',
+    element: <NavBar />,
+    children: [
+      {
+        path: ':player',
+        element: <PlayersState />,
+      },
+    ],
+  },
+];
 
 export const router = createHashRouter([
   {
@@ -24,67 +65,55 @@ export const router = createHashRouter([
     element: <Home />,
     children: [
       {
-        path: 'legend',
-        element: <PlayerLegend />,
+        path: 'rules',
+        element: <Rules />,
       },
       {
-        path: 'investments',
-        element: <Investments />,
+        path: 'games',
+        element: (
+          <ProtectedRoute>
+            <MyGames />
+          </ProtectedRoute>
+        ),
       },
       {
-        path: 'events',
-        element: <Events />,
+        path: 'createGame',
+        element: <CreateGameForm />,
       },
-      {
-        path: 'finances',
-        element: <Finances />,
-        children: [
-          {
-            path: 'general',
-            element: <FinancesGeneral />,
-          },
-          {
-            path: 'income',
-            element: <FinancesIncome />,
-          },
-          {
-            path: 'extend',
-            element: <FinancesExtend />,
-          },
-        ],
-      },
-      {
-        path: 'airbag',
-        element: <AirBag />,
-      },
-      {
-        path: 'financial-freedom',
-        element: <FinancialFreedom />,
-      },
+    ],
+  },
+  {
+    path: 'game/:sessionId',
+    element: (
+      <ProtectedRoute>
+        <GameSessionProvider>
+          <GameSessionPage />
+        </GameSessionProvider>
+      </ProtectedRoute>
+    ),
+    children: [
+      { path: 'player', children: playerRoutes },
+      { path: 'host', children: hostRoutes },
     ],
   },
   {
     path: 'login',
     element: (
-      <RedirectIfAuth>
+      <ProtectedRoute requireUnauth>
         <LoginPage />
-      </RedirectIfAuth>
+      </ProtectedRoute>
     ),
   },
   {
     path: 'register',
     element: (
-      <RedirectIfAuth>
+      <ProtectedRoute requireUnauth>
         <RegisterPage />
-      </RedirectIfAuth>
+      </ProtectedRoute>
     ),
   },
   {
     path: 'forget-password',
-    element: (
-      <RedirectIfAuth>
-        <ForgetPasswordPage />
-      </RedirectIfAuth>
-    ),
+    element: <ForgetPasswordPage />,
   },
 ]);

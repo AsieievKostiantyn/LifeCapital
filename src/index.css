@@ -1,3 +1,5 @@
+@import 'tailwindcss';
+
 * {
   box-sizing: border-box;
 }
@@ -131,6 +133,18 @@ button {
 .card-template {
   min-height: 200px;
   width: 100%;
+}
+
+.changed {
+  background-color: rgba(44, 94, 255, 0.168627451);
+}
+
+.added {
+  background-color: rgba(0, 152, 60, 0.1921568627);
+}
+
+.removed {
+  background-color: rgba(255, 26, 26, 0.1843137255);
 }
 
 /*# sourceMappingURL=index.css.map */

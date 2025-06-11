@@ -1,0 +1,33 @@
+.main {
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  transition: margin-left 0.3s ease-in-out;
+
+  @media (min-width: 701px) {
+    margin-left: 200px;
+  }
+
+  @media (max-width: 700px) {
+    margin-left: 0;
+  }
+}
+
+.menuContainer {
+  display: none;
+  align-items: center;
+  gap: 15px;
+  padding-bottom: 20px;
+
+  @media (max-width: 700px) {
+    display: flex;
+  }
+}
+
+.menuButton {
+  background: transparent;
+  border: none;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}

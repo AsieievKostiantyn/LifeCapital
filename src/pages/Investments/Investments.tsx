@@ -2,19 +2,23 @@ import cls from './Investments.module.scss';
 import InvestmentsShareRow from './InvestmentsShareRow';
 import InvestmentCardPropTable from './InvestmentCardPropTable';
 import {
-  listOfSmallInvestments,
   BusinessInvestment,
   CurrencyInvestment,
   ShareInvestment,
 } from '../../data/smallInvestments';
-import {
-  listOfLargeInvestments,
-  BusinessLargeInvestment,
-} from '../../data/largeInvestments';
-import useLocalStorage from '../../service/useLocalStorage';
-import { useState, useEffect } from 'react';
+import { BusinessLargeInvestment } from '../../data/largeInvestments';
+import { useEffect, useState } from 'react';
 import PreButtonIcon from '../../components/PreButtonIcon/PreButtonIcon';
 import CardTemplate from '../../components/CardTemplate/CardTemplate';
+import { useSessionLocalStorage } from '../../service/hooks/useSessionLocalStorage';
+import { useGameSession } from '../../context/GameSession/useGameSession';
+import { ShareTableRowType } from '../../types/db';
+import { useAuth } from '../../context/useAuth';
+
+type SmallInvestment =
+  | BusinessInvestment
+  | CurrencyInvestment
+  | ShareInvestment;
 
 export type InvestmentType =
   | BusinessLargeInvestment
@@ -22,15 +26,7 @@ export type InvestmentType =
   | CurrencyInvestment
   | ShareInvestment;
 
-export interface ShareTableDataType {
-  id: number;
-  code: string;
-  packetCoast: string;
-  sharePrice: string;
-  numberOfShares: string;
-}
-
-const shareTableData: ShareTableDataType[] = Array.from(
+const shareTableData: ShareTableRowType[] = Array.from(
   { length: 5 },
   (_, index) => ({
     id: index + 1,
@@ -42,23 +38,23 @@ const shareTableData: ShareTableDataType[] = Array.from(
 );
 
 const Investments = () => {
+  const { userData } = useAuth();
+  const { getCardList, updateCardList, setCurrentCard } = useGameSession();
   const [isInvested, setIsInvested] = useState(false);
-  const [searchId, setSearchId] = useState('');
+  // const [searchId, setSearchId] = useState('');
   const [selectedInvestment, setSelectedInvestment] =
-    useLocalStorage<InvestmentType | null>('selectedInvestment', null);
-  const [boughtInvestment, setBoughtInvestment] = useState<InvestmentType[]>(
-    () => {
-      const savedInvestments = localStorage.getItem('boughtInvestment');
-      return savedInvestments ? JSON.parse(savedInvestments) : [];
-    }
-  );
-  const [tableData, setTableData] = useLocalStorage<typeof shareTableData>(
-    'investmentsShareTable',
-    shareTableData
-  );
+    useSessionLocalStorage<InvestmentType | null>(
+      'invSelectedInvestment',
+      null
+    );
+  const [boughtInvestment, setBoughtInvestment] = useSessionLocalStorage<
+    InvestmentType[]
+  >('invBought', []);
+  const [tableData, setTableData] = useSessionLocalStorage<
+    typeof shareTableData
+  >('invShareTable', shareTableData);
 
   useEffect(() => {
-    localStorage.setItem('boughtInvestment', JSON.stringify(boughtInvestment));
     if (!selectedInvestment) return;
     const alreadyBought = boughtInvestment.some(
       (investment) => investment.id === selectedInvestment.id
@@ -66,20 +62,33 @@ const Investments = () => {
     if (alreadyBought) setIsInvested(true);
   }, [boughtInvestment, selectedInvestment]);
 
-  const handleRandomSmallInvestment = () => {
-    const randomIndex = Math.floor(
-      Math.random() * listOfSmallInvestments.length
-    );
-    setSelectedInvestment(listOfSmallInvestments[randomIndex]);
-
+  const getSmallInvestment = async () => {
+    const list = await getCardList<SmallInvestment>('smallInvestments');
+    const card = list.shift();
+    if (!card) return;
+    setSelectedInvestment(card);
+    list.push(card);
+    await setCurrentCard('investment', {
+      card: card,
+      playerAdded: userData?.displayName,
+      availableToInvest: false,
+    });
+    await updateCardList('smallInvestments', list);
     setIsInvested(false);
   };
-  const handleRandomLargeInvestment = () => {
-    const randomIndex = Math.floor(
-      Math.random() * listOfLargeInvestments.length
-    );
 
-    setSelectedInvestment(listOfLargeInvestments[randomIndex]);
+  const getLargeInvestment = async () => {
+    const list = await getCardList<BusinessLargeInvestment>('largeInvestments');
+    const card = list.shift();
+    if (!card) return;
+    setSelectedInvestment(card);
+    list.push(card);
+    await setCurrentCard('investment', {
+      card: card,
+      playerAdded: userData?.displayName,
+      availableToInvest: false,
+    });
+    await updateCardList('largeInvestments', list);
     setIsInvested(false);
   };
 
@@ -106,7 +115,7 @@ const Investments = () => {
 
   const handleShareTableData = (
     index: number,
-    field: keyof ShareTableDataType,
+    field: keyof ShareTableRowType,
     value: string
   ) => {
     setTableData((prev) =>
@@ -123,28 +132,28 @@ const Investments = () => {
     );
   };
 
-  const searchInvestment = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  // const searchInvestment = (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
 
-    const foundInvestment =
-      listOfSmallInvestments.find(
-        (inv) => inv.id.toLowerCase() === searchId.toLowerCase()
-      ) ||
-      listOfLargeInvestments.find(
-        (inv) => inv.id.toLowerCase() === searchId.toLowerCase()
-      );
+  //   const foundInvestment =
+  //     listOfSmallInvestments.find(
+  //       (inv) => inv.id.toLowerCase() === searchId.toLowerCase()
+  //     ) ||
+  //     listOfLargeInvestments.find(
+  //       (inv) => inv.id.toLowerCase() === searchId.toLowerCase()
+  //     );
 
-    if (foundInvestment) {
-      setSelectedInvestment(foundInvestment);
-    } else {
-      alert('Інвестиція не знайдена!');
-    }
-  };
+  //   if (foundInvestment) {
+  //     setSelectedInvestment(foundInvestment);
+  //   } else {
+  //     alert('Інвестиція не знайдена!');
+  //   }
+  // };
 
   return (
     <>
       <div className="container">
-        <form action="getInvestmentCard">
+        {/* <form action="getInvestmentCard">
           <div className={cls.searchInvestmentForm}>
             <input
               type="text"
@@ -154,18 +163,18 @@ const Investments = () => {
             />
             <button onClick={searchInvestment}>Знайти</button>
           </div>
-        </form>
+        </form> */}
         <div>
           <div>
             <button
-              onClick={handleRandomSmallInvestment}
+              onClick={getSmallInvestment}
               className="investmentCardBorder"
             >
               <PreButtonIcon bgColor={'rgba(221, 146, 6, 0.845)'} />
               Маленькі інвестиції
             </button>
             <button
-              onClick={handleRandomLargeInvestment}
+              onClick={getLargeInvestment}
               className="investmentCardBorder"
             >
               <PreButtonIcon bgColor={'rgba(221, 146, 6, 0.845)'} />
@@ -187,7 +196,6 @@ const Investments = () => {
                   <InvestmentCardPropTable investment={selectedInvestment} />
                   {isInvested ? (
                     <button
-                      onClick={buyInvestment}
                       disabled={isInvested}
                       style={{
                         cursor: 'not-allowed',

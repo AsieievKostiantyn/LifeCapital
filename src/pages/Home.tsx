@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import cls from './styles/Home.module.scss';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
 import ButtonWithConfirmModal from '../components/ButtonWithConfirmModal/ButtonWithConfirmModal';
+import Information from './Information/Information';
 
 function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const { userData, logout } = useAuth();
+  const location = useLocation();
 
   return (
     <>
@@ -29,10 +31,28 @@ function Home() {
               </li>
               <li>
                 <Link
+                  to="/rules"
+                  className={cls.link}
+                  onClick={() => setIsOpen(false)}
+                >
+                  Правила
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/games"
+                  className={cls.link}
+                  onClick={() => setIsOpen(false)}
+                >
+                  Мої ігри
+                </Link>
+              </li>
+
+              {/* <li>
+                <Link
                   to="/legend"
                   className={cls.link}
                   onClick={() => setIsOpen(false)}
-                  accessKey="2"
                 >
                   Легенда гравця
                 </Link>
@@ -42,7 +62,6 @@ function Home() {
                   to="/finances"
                   className={cls.link}
                   onClick={() => setIsOpen(false)}
-                  accessKey="3"
                 >
                   Фінанси
                 </Link>
@@ -52,7 +71,6 @@ function Home() {
                   to="/investments"
                   className={cls.link}
                   onClick={() => setIsOpen(false)}
-                  accessKey="4"
                 >
                   Інвестиції
                 </Link>
@@ -62,7 +80,6 @@ function Home() {
                   to="/events"
                   className={cls.link}
                   onClick={() => setIsOpen(false)}
-                  accessKey="5"
                 >
                   Активність
                 </Link>
@@ -84,7 +101,7 @@ function Home() {
                 >
                   Фінансова свобода
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </nav>
         </div>
@@ -145,7 +162,7 @@ function Home() {
           <p>Життєвий капітал</p>
         </div>
 
-        <Outlet />
+        {location.pathname === '/' ? <Information /> : <Outlet />}
       </main>
     </>
   );

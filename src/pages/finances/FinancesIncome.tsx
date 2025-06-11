@@ -1,16 +1,10 @@
-import useLocalStorage from '../../service/useLocalStorage';
 import BusinessTableRow from './BusinessTableRow';
 
-export interface businessTableRowType {
-  id: number;
-  code: string;
-  firstPayment: string;
-  cost: string;
-  credit: string;
-  passiveIncome: string;
-}
+import { BusinessTableRowType } from '../../types/db';
 
-const businessTableData: businessTableRowType[] = Array.from(
+import { useSessionLocalStorage } from '../../service/hooks/useSessionLocalStorage';
+
+const businessTableData: BusinessTableRowType[] = Array.from(
   { length: 5 },
   (_, index) => ({
     id: index + 1,
@@ -23,24 +17,29 @@ const businessTableData: businessTableRowType[] = Array.from(
 );
 
 const FinancesIncome = () => {
-  const [businessTable, setBusinessTable] = useLocalStorage<
-    businessTableRowType[]
-  >('businessTable', businessTableData);
-  const [formData, setFormData] = useLocalStorage('finances', {
+  const [businessTable, setBusinessTable] = useSessionLocalStorage<
+    BusinessTableRowType[]
+  >('finBusinessTable', businessTableData);
+  const [formForGlobalData, setFormForGlobalData] = useSessionLocalStorage(
+    'finGlobal',
+    {
+      depositAmount: '',
+      amountOfSummaryIncomes: '',
+    }
+  );
+  const [formData, setFormData] = useSessionLocalStorage('finIncomes', {
     salary: '',
     childSupport: '',
     depositAmount: '',
     depositIncome: '',
     goldAmount: '',
     goldIncome: '',
-    intellectualPropertyAmount: '',
-    intellectualPropertyIncome: '',
-    ipAmount: '',
-    ipIncome: '',
-    savingsInsuranceAmount: '',
-    savingsInsuranceIncome: '',
     riskInsuranceAmount: '',
     riskInsuranceIncome: '',
+    intellectualPropertyAmount: '',
+    intellectualPropertyIncome: '',
+    savingsInsuranceAmount: '',
+    savingsInsuranceIncome: '',
     amountOfSummaryIncomes: '',
   });
 
@@ -48,20 +47,28 @@ const FinancesIncome = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleGlobalDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormForGlobalData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const handleTableRowChange = (
     index: number,
-    field: keyof businessTableRowType,
+    field: keyof BusinessTableRowType,
     value: string
   ) => {
-    setBusinessTable((prev: businessTableRowType[]) =>
-      prev.map((row: businessTableRowType, i: number) =>
+    setBusinessTable((prev: BusinessTableRowType[]) =>
+      prev.map((row: BusinessTableRowType, i: number) =>
         i === index ? { ...row, [field]: value } : row
       )
     );
   };
 
   const addNewBusinessRow = () => {
-    const newRow: businessTableRowType = {
+    const newRow: BusinessTableRowType = {
       id: businessTable.length + 1,
       code: '',
       firstPayment: '',
@@ -124,8 +131,8 @@ const FinancesIncome = () => {
                   className="asset-input"
                   name="depositAmount"
                   type="text"
-                  value={formData.depositAmount}
-                  onChange={handleChange}
+                  value={formForGlobalData.depositAmount}
+                  onChange={handleGlobalDataChange}
                 />
               </td>
               <td>
@@ -185,6 +192,27 @@ const FinancesIncome = () => {
               <td>
                 <input
                   className="asset-input"
+                  name="riskInsuranceAmount"
+                  type="text"
+                  value={formData.riskInsuranceAmount}
+                  onChange={handleChange}
+                />
+              </td>
+              <td>
+                <input
+                  className="income-input"
+                  name="riskInsuranceIncome"
+                  type="text"
+                  value={formData.riskInsuranceIncome}
+                  onChange={handleChange}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="td-text">Інтелектуальна власність</td>
+              <td>
+                <input
+                  className="asset-input"
                   name="intellectualPropertyAmount"
                   type="text"
                   value={formData.intellectualPropertyAmount}
@@ -197,27 +225,6 @@ const FinancesIncome = () => {
                   name="intellectualPropertyIncome"
                   type="text"
                   value={formData.intellectualPropertyIncome}
-                  onChange={handleChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="td-text">Інтелектуальна власність</td>
-              <td>
-                <input
-                  className="asset-input"
-                  name="ipAmount"
-                  type="text"
-                  value={formData.ipAmount}
-                  onChange={handleChange}
-                />
-              </td>
-              <td>
-                <input
-                  className="income-input"
-                  name="ipIncome"
-                  type="text"
-                  value={formData.ipIncome}
                   onChange={handleChange}
                 />
               </td>
@@ -239,7 +246,7 @@ const FinancesIncome = () => {
             </tr>
           </thead>
           <tbody>
-            {businessTable.map((row: businessTableRowType, index: number) => (
+            {businessTable.map((row: BusinessTableRowType, index: number) => (
               <BusinessTableRow
                 key={row.id}
                 row={row}
@@ -265,8 +272,8 @@ const FinancesIncome = () => {
                 className="summary-td-input"
                 name="amountOfSummaryIncomes"
                 type="text"
-                value={formData.amountOfSummaryIncomes}
-                onChange={handleChange}
+                value={formForGlobalData.amountOfSummaryIncomes}
+                onChange={handleGlobalDataChange}
               />
             </td>
           </tr>

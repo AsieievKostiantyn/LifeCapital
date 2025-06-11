@@ -1,6 +1,6 @@
-import useLocalStorage from '../../service/useLocalStorage';
 import AirBagTableRow from './AirBagTableRow';
 import cls from './AirBag.module.scss';
+import { useSessionLocalStorage } from '../../service/hooks/useSessionLocalStorage';
 
 export interface IncomeRowType {
   id: number;
@@ -17,11 +17,11 @@ const initialData: IncomeRowType[] = Array.from({ length: 10 }, (_, index) => ({
 }));
 
 const IncomeTable = () => {
-  const [tableData, setTableData] = useLocalStorage<IncomeRowType[]>(
-    'airBagTable',
+  const [tableData, setTableData] = useSessionLocalStorage<IncomeRowType[]>(
+    'abTable',
     initialData
   );
-  const [airBagValue, setAirBagValue] = useLocalStorage('airBagValue', '');
+  const [airBagValue, setAirBagValue] = useSessionLocalStorage('abValue', '');
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAirBagValue(e.target.value);
@@ -56,7 +56,7 @@ const IncomeTable = () => {
           </tr>
         </tbody>
       </table>
-      <table className={cls.airBagTable}>
+      <table>
         <thead>
           <tr>
             <th>№</th>

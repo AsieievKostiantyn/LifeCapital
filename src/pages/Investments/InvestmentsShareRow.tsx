@@ -1,11 +1,11 @@
-import { ShareTableDataType } from './Investments';
+import { ShareTableRowType } from '../../types/db';
 
 interface InvestmentsShareRowProps {
-  row: ShareTableDataType;
+  row: ShareTableRowType;
   index: number;
   handleChange: (
     index: number,
-    field: keyof ShareTableDataType,
+    field: keyof ShareTableRowType,
     value: string
   ) => void;
 }

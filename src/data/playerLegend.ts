@@ -1,4 +1,4 @@
-export interface PlayerLegend {
+export interface PlayerLegendType {
   profession: string;
   salary: number;
   children: number;

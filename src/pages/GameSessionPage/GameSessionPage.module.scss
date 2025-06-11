@@ -1,0 +1,15 @@
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.link {
+  padding: 3px 10px;
+  background-color: transparent;
+
+  &:hover {
+    background-color: #01346bca;
+    transition: all 1s;
+  }
+}
