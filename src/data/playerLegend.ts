@@ -2,19 +2,20 @@ export interface PlayerLegendType {
   profession: string;
   salary: number;
   children: number;
+  monthlyTotalIncome: number;
+  monthlyTotalExpenses: number;
+  monthlyFreeFunds: number;
   assets: {
-    deposit: number;
-    gold: number;
-    savingsInsurance: number;
-    riskInsurance: number;
-    intellectualProperty: number;
-    intellectualPropertyIncome: number;
+    deposit: AssetItem;
+    gold: AssetItem;
+    savingsInsurance: AssetItem;
+    riskInsurance: AssetItem;
+    intellectualProperty: AssetItem;
   };
-  costs: {
+  expenses: {
     incomeTax: number;
     utilities: number;
     householdExpenses: number;
-    totalExpenses: number;
     otherExpenses: number;
     childExpenses: number;
     credits: {
@@ -31,25 +32,45 @@ interface CreditItem {
   amountOfCredit: number;
   interest: number;
 }
+interface AssetItem {
+  assetAmount: number;
+  assetIncome: number;
+}
 
-export const listOfPlayersLegends = [
+export const listOfPlayersLegends: PlayerLegendType[] = [
   {
     profession: 'Дизайнер',
     salary: 500,
     children: 1,
+    monthlyTotalIncome: 500,
+    monthlyTotalExpenses: 370,
+    monthlyFreeFunds: 130,
     assets: {
-      deposit: 0,
-      gold: 0,
-      savingsInsurance: 0,
-      riskInsurance: 0,
-      intellectualProperty: 0,
-      intellectualPropertyIncome: 0,
+      deposit: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      gold: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      savingsInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      riskInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      intellectualProperty: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
     },
-    costs: {
+    expenses: {
       incomeTax: 50,
       utilities: 70,
       householdExpenses: 190,
-      totalExpenses: 310,
       otherExpenses: 0,
       childExpenses: 60,
       credits: {
@@ -80,19 +101,35 @@ export const listOfPlayersLegends = [
     profession: 'Інженер',
     salary: 900,
     children: 2,
+    monthlyTotalIncome: 1030,
+    monthlyTotalExpenses: 860,
+    monthlyFreeFunds: 170,
     assets: {
-      deposit: 4000,
-      gold: 0,
-      savingsInsurance: 0,
-      riskInsurance: 0,
-      intellectualProperty: 5000,
-      intellectualPropertyIncome: 59,
+      deposit: {
+        assetAmount: 4000,
+        assetIncome: 80,
+      },
+      gold: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      savingsInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      riskInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      intellectualProperty: {
+        assetAmount: 5000,
+        assetIncome: 50,
+      },
     },
-    costs: {
+    expenses: {
       incomeTax: 80,
       utilities: 80,
       householdExpenses: 260,
-      totalExpenses: 420,
       otherExpenses: 0,
       childExpenses: 100,
       credits: {
@@ -123,19 +160,35 @@ export const listOfPlayersLegends = [
     profession: 'Викладач',
     salary: 600,
     children: 0,
+    monthlyTotalIncome: 710,
+    monthlyTotalExpenses: 570,
+    monthlyFreeFunds: 140,
     assets: {
-      deposit: 3000,
-      gold: 0,
-      savingsInsurance: 0,
-      riskInsurance: 0,
-      intellectualProperty: 10000,
-      intellectualPropertyIncome: 50,
+      deposit: {
+        assetAmount: 3000,
+        assetIncome: 60,
+      },
+      gold: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      savingsInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      riskInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      intellectualProperty: {
+        assetAmount: 10000,
+        assetIncome: 50,
+      },
     },
-    costs: {
+    expenses: {
       incomeTax: 70,
       utilities: 70,
       householdExpenses: 190,
-      totalExpenses: 330,
       otherExpenses: 0,
       childExpenses: 90,
       credits: {
@@ -166,19 +219,35 @@ export const listOfPlayersLegends = [
     profession: 'Кухар',
     salary: 300,
     children: 0,
+    monthlyTotalIncome: 420,
+    monthlyTotalExpenses: 320,
+    monthlyFreeFunds: 100,
     assets: {
-      deposit: 5000,
-      gold: 2000,
-      savingsInsurance: 0,
-      riskInsurance: 0,
-      intellectualProperty: 0,
-      intellectualPropertyIncome: 0,
+      deposit: {
+        assetAmount: 5000,
+        assetIncome: 100,
+      },
+      gold: {
+        assetAmount: 2000,
+        assetIncome: 20,
+      },
+      savingsInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      riskInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      intellectualProperty: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
     },
-    costs: {
+    expenses: {
       incomeTax: 40,
       utilities: 50,
       householdExpenses: 140,
-      totalExpenses: 230,
       otherExpenses: 0,
       childExpenses: 90,
       credits: {
@@ -209,19 +278,35 @@ export const listOfPlayersLegends = [
     profession: 'Менеджер',
     salary: 1100,
     children: 2,
+    monthlyTotalIncome: 1160,
+    monthlyTotalExpenses: 1010,
+    monthlyFreeFunds: 150,
     assets: {
-      deposit: 3000,
-      gold: 0,
-      savingsInsurance: 0,
-      riskInsurance: 0,
-      intellectualProperty: 0,
-      intellectualPropertyIncome: 0,
+      deposit: {
+        assetAmount: 3000,
+        assetIncome: 60,
+      },
+      gold: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      savingsInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      riskInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      intellectualProperty: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
     },
-    costs: {
+    expenses: {
       incomeTax: 100,
       utilities: 80,
       householdExpenses: 360,
-      totalExpenses: 540,
       otherExpenses: 0,
       childExpenses: 100,
       credits: {
@@ -252,19 +337,35 @@ export const listOfPlayersLegends = [
     profession: 'Лікар',
     salary: 600,
     children: 1,
+    monthlyTotalIncome: 680,
+    monthlyTotalExpenses: 540,
+    monthlyFreeFunds: 140,
     assets: {
-      deposit: 3000,
-      gold: 2000,
-      savingsInsurance: 0,
-      riskInsurance: 0,
-      intellectualProperty: 0,
-      intellectualPropertyIncome: 0,
+      deposit: {
+        assetAmount: 3000,
+        assetIncome: 60,
+      },
+      gold: {
+        assetAmount: 2000,
+        assetIncome: 20,
+      },
+      savingsInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      riskInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      intellectualProperty: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
     },
-    costs: {
+    expenses: {
       incomeTax: 70,
       utilities: 60,
       householdExpenses: 180,
-      totalExpenses: 310,
       otherExpenses: 0,
       childExpenses: 80,
       credits: {
@@ -295,19 +396,35 @@ export const listOfPlayersLegends = [
     profession: 'Дистриб`ютор',
     salary: 1000,
     children: 1,
+    monthlyTotalIncome: 1060,
+    monthlyTotalExpenses: 900,
+    monthlyFreeFunds: 160,
     assets: {
-      deposit: 3000,
-      gold: 0,
-      savingsInsurance: 0,
-      riskInsurance: 0,
-      intellectualProperty: 0,
-      intellectualPropertyIncome: 0,
+      deposit: {
+        assetAmount: 3000,
+        assetIncome: 60,
+      },
+      gold: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      savingsInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      riskInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      intellectualProperty: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
     },
-    costs: {
+    expenses: {
       incomeTax: 90,
       utilities: 90,
       householdExpenses: 390,
-      totalExpenses: 570,
       otherExpenses: 0,
       childExpenses: 110,
       credits: {
@@ -338,19 +455,35 @@ export const listOfPlayersLegends = [
     profession: 'Підприємець',
     salary: 1200,
     children: 2,
+    monthlyTotalIncome: 1280,
+    monthlyTotalExpenses: 1100,
+    monthlyFreeFunds: 180,
     assets: {
-      deposit: 4000,
-      gold: 0,
-      savingsInsurance: 0,
-      riskInsurance: 0,
-      intellectualProperty: 0,
-      intellectualPropertyIncome: 0,
+      deposit: {
+        assetAmount: 4000,
+        assetIncome: 80,
+      },
+      gold: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      savingsInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      riskInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      intellectualProperty: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
     },
-    costs: {
+    expenses: {
       incomeTax: 90,
       utilities: 100,
       householdExpenses: 380,
-      totalExpenses: 570,
       otherExpenses: 0,
       childExpenses: 120,
       credits: {
@@ -381,19 +514,35 @@ export const listOfPlayersLegends = [
     profession: 'Водій',
     salary: 700,
     children: 2,
+    monthlyTotalIncome: 740,
+    monthlyTotalExpenses: 580,
+    monthlyFreeFunds: 160,
     assets: {
-      deposit: 2000,
-      gold: 0,
-      savingsInsurance: 0,
-      riskInsurance: 0,
-      intellectualProperty: 0,
-      intellectualPropertyIncome: 0,
+      deposit: {
+        assetAmount: 2000,
+        assetIncome: 40,
+      },
+      gold: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      savingsInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      riskInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      intellectualProperty: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
     },
-    costs: {
+    expenses: {
       incomeTax: 80,
       utilities: 80,
       householdExpenses: 200,
-      totalExpenses: 360,
       otherExpenses: 0,
       childExpenses: 70,
       credits: {
@@ -424,19 +573,35 @@ export const listOfPlayersLegends = [
     profession: 'Будівельник',
     salary: 1500,
     children: 2,
+    monthlyTotalIncome: 1590,
+    monthlyTotalExpenses: 1400,
+    monthlyFreeFunds: 190,
     assets: {
-      deposit: 4000,
-      gold: 1000,
-      savingsInsurance: 0,
-      riskInsurance: 0,
-      intellectualProperty: 0,
-      intellectualPropertyIncome: 0,
+      deposit: {
+        assetAmount: 4000,
+        assetIncome: 80,
+      },
+      gold: {
+        assetAmount: 1000,
+        assetIncome: 10,
+      },
+      savingsInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      riskInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      intellectualProperty: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
     },
-    costs: {
+    expenses: {
       incomeTax: 180,
       utilities: 120,
       householdExpenses: 430,
-      totalExpenses: 730,
       otherExpenses: 0,
       childExpenses: 130,
       credits: {
@@ -467,19 +632,35 @@ export const listOfPlayersLegends = [
     profession: 'Працівник банку',
     salary: 600,
     children: 1,
+    monthlyTotalIncome: 650,
+    monthlyTotalExpenses: 520,
+    monthlyFreeFunds: 130,
     assets: {
-      deposit: 2000,
-      gold: 1000,
-      savingsInsurance: 0,
-      riskInsurance: 0,
-      intellectualProperty: 0,
-      intellectualPropertyIncome: 0,
+      deposit: {
+        assetAmount: 2000,
+        assetIncome: 40,
+      },
+      gold: {
+        assetAmount: 1000,
+        assetIncome: 10,
+      },
+      savingsInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      riskInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      intellectualProperty: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
     },
-    costs: {
+    expenses: {
       incomeTax: 50,
       utilities: 70,
       householdExpenses: 220,
-      totalExpenses: 340,
       otherExpenses: 0,
       childExpenses: 70,
       credits: {
@@ -510,19 +691,35 @@ export const listOfPlayersLegends = [
     profession: 'Офісний працівник',
     salary: 400,
     children: 1,
+    monthlyTotalIncome: 440,
+    monthlyTotalExpenses: 370,
+    monthlyFreeFunds: 70,
     assets: {
-      deposit: 2000,
-      gold: 0,
-      savingsInsurance: 0,
-      riskInsurance: 0,
-      intellectualProperty: 0,
-      intellectualPropertyIncome: 0,
+      deposit: {
+        assetAmount: 2000,
+        assetIncome: 40,
+      },
+      gold: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      savingsInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      riskInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      intellectualProperty: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
     },
-    costs: {
+    expenses: {
       incomeTax: 40,
       utilities: 50,
       householdExpenses: 150,
-      totalExpenses: 240,
       otherExpenses: 0,
       childExpenses: 50,
       credits: {
@@ -553,19 +750,35 @@ export const listOfPlayersLegends = [
     profession: 'Програміст',
     salary: 2000,
     children: 1,
+    monthlyTotalIncome: 2030,
+    monthlyTotalExpenses: 2000,
+    monthlyFreeFunds: 30,
     assets: {
-      deposit: 0,
-      gold: 3000,
-      savingsInsurance: 0,
-      riskInsurance: 0,
-      intellectualProperty: 0,
-      intellectualPropertyIncome: 0,
+      deposit: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      gold: {
+        assetAmount: 3000,
+        assetIncome: 30,
+      },
+      savingsInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      riskInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      intellectualProperty: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
     },
-    costs: {
+    expenses: {
       incomeTax: 200,
       utilities: 150,
       householdExpenses: 650,
-      totalExpenses: 1000,
       otherExpenses: 0,
       childExpenses: 150,
       credits: {
@@ -596,19 +809,35 @@ export const listOfPlayersLegends = [
     profession: 'Військовослужбовець',
     salary: 800,
     children: 2,
+    monthlyTotalIncome: 870,
+    monthlyTotalExpenses: 740,
+    monthlyFreeFunds: 130,
     assets: {
-      deposit: 3000,
-      gold: 1000,
-      savingsInsurance: 0,
-      riskInsurance: 0,
-      intellectualProperty: 0,
-      intellectualPropertyIncome: 0,
+      deposit: {
+        assetAmount: 3000,
+        assetIncome: 60,
+      },
+      gold: {
+        assetAmount: 1000,
+        assetIncome: 10,
+      },
+      savingsInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      riskInsurance: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
+      intellectualProperty: {
+        assetAmount: 0,
+        assetIncome: 0,
+      },
     },
-    costs: {
+    expenses: {
       incomeTax: 80,
       utilities: 70,
       householdExpenses: 260,
-      totalExpenses: 410,
       otherExpenses: 0,
       childExpenses: 90,
       credits: {
